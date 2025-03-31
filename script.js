@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const MAX_LIVES = 16;
     const START_LEVEL = 5;
     const END_LEVEL = 9;
-    const GUESS_VALIDATION_API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"; // << RESTORED
-    const TARGET_WORD_API_URL = "https://api.datamuse.com/words"; // Keep for target word selection
-    const TARGET_WORDS_TO_FETCH = 100; // How many potential words to fetch from Datamuse
-    const LOCAL_STORAGE_KEY = 'progressiveWordleState_v6'; // Key from that version
+    const GUESS_VALIDATION_API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+    const TARGET_WORD_API_URL = "https://api.datamuse.com/words";
+    const TARGET_WORDS_TO_FETCH = 100; // Fetch more to increase chance of finding constrained words
+    const LOCAL_STORAGE_KEY = 'progressiveWordleState_v10'; // Key from version with constraint
 
     // --- DOM Elements ---
     const levelDisplay = document.getElementById('level-display');
@@ -29,15 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameWon = false;
     let visualInputSquares = [];
     let duplicateTargetLetters = new Set(); // Stores duplicate letters in the current target
+    let requiredStartingLetter = ''; // Stores the required starting letter after level 1
 
     // --- State Management Functions (localStorage) ---
     function saveGameState() {
         if (typeof(Storage) === "undefined") return;
         const state = {
             currentLevel, currentLives, targetWord, currentWordLength,
-            cumulativeGameHistory, // Save cumulative history
-            gameOver, gameWon,
-            duplicateTargetLetters: Array.from(duplicateTargetLetters) // Save current duplicates
+            cumulativeGameHistory, gameOver, gameWon,
+            duplicateTargetLetters: Array.from(duplicateTargetLetters),
+            requiredStartingLetter // Save the constraint
         };
         try { localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state)); }
         catch (error) { console.error("Error saving game state:", error); }
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 gameOver = savedState.gameOver;
                 gameWon = savedState.gameWon;
                 duplicateTargetLetters = new Set(savedState.duplicateTargetLetters || []); // Load current duplicates
+                requiredStartingLetter = savedState.requiredStartingLetter || ''; // Load the constraint
                 return true;
             } else { throw new Error("Invalid state structure"); }
         } catch (error) {
@@ -94,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Modify displayGuessRow to accept wordLength and apply glow conditionally
     function displayGuessRow(guess, feedback, wordLength, immediate = false) {
         const row = document.createElement('div');
         row.classList.add('grid-row');
@@ -153,56 +154,76 @@ document.addEventListener('DOMContentLoaded', () => {
      }
 
     // --- Game Logic Functions ---
-
     async function initGame(forceNew = false) {
          setMessage("Initializing game...");
          hiddenGuessInput.disabled = true; submitButton.disabled = true;
 
          if (!forceNew && loadGameState()) {
-             updateStatusDisplay();
-             redrawCumulativeGrid(); // Redraw ALL history on load
-             setupVisualInput(); // Setup input for current level
-             updateVisualSquares();
+             // Restore UI from loaded state
+             updateStatusDisplay(); redrawCumulativeGrid(); setupVisualInput(); updateVisualSquares();
              if (gameOver) {
                  endGame(gameWon, false); // Update UI for ended state
-                 setMessage(gameWon ? `Game previously won!` : `Game previously lost.`); // Simplified message
+                 setMessage(gameWon ? `Game previously won!` : `Game previously lost.`);
              } else if (!targetWord){
                  console.warn("Loaded state missing target word. Starting level setup.");
                  await setupLevel(); // Need to fetch word
              } else {
-                  setMessage(`Game resumed at Level ${currentLevel - START_LEVEL + 1}.`);
-                  if (!gameOver) { // Enable controls if game not over
+                  // Add constraint info to resume message if applicable
+                  let resumeMsg = `Game resumed at Level ${currentLevel - START_LEVEL + 1}.`;
+                  if (requiredStartingLetter && currentLevel > START_LEVEL) {
+                      resumeMsg += ` (Words must start with '${requiredStartingLetter.toUpperCase()}')`;
+                  }
+                  setMessage(resumeMsg);
+                  if(!gameOver){ // Enable controls if not ended
                       hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
                   }
              }
          } else {
-             // Start fresh
-             clearGameState(); currentLevel = START_LEVEL; currentLives = MAX_LIVES;
+             // Start fresh game
+             clearGameState(); // Resets requiredStartingLetter
+             currentLevel = START_LEVEL; currentLives = MAX_LIVES;
              redrawCumulativeGrid(); // Draw empty grid initially
-             await setupLevel(); // Setup first level (fetches word)
+             await setupLevel(); // Setup first level (fetches word, sets constraint)
              updateStatusDisplay();
              if (!gameOver) {
                  hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
              }
          }
-     }
+    }
 
-    // setupLevel fetches target word and calculates duplicates
+    // Modify setupLevel to handle the starting letter constraint
     async function setupLevel() {
         currentWordLength = currentLevel;
-        // guessHistory = []; // REMOVED
         targetWord = '';
         duplicateTargetLetters = new Set(); // Reset duplicates for new level
 
-        // gridContainer.innerHTML = ''; // REMOVED - Don't clear grid between levels
         setupVisualInput(); // Setup input squares for the new length
         updateStatusDisplay(); // Update level display
 
         setMessage(`Workspaceing ${currentWordLength}-letter words...`);
+        // Add constraint info to fetching message if applicable
+        if (requiredStartingLetter && currentLevel > START_LEVEL) {
+             setMessage(`Workspaceing ${currentWordLength}-letter words starting with '${requiredStartingLetter.toUpperCase()}'...`);
+        }
         hiddenGuessInput.disabled = true; submitButton.disabled = true;
 
-        const spellingPattern = '?'.repeat(currentWordLength);
-        const queryParams = new URLSearchParams({ sp: spellingPattern, max: TARGET_WORDS_TO_FETCH, md: 'f' });
+        // --- Determine Spelling Pattern based on constraint ---
+        let spellingPattern;
+        if (currentLevel === START_LEVEL || !requiredStartingLetter) {
+            // First level, or constraint not set (e.g., loaded old save state)
+            spellingPattern = '?'.repeat(currentWordLength);
+        } else {
+            // Subsequent levels: apply the constraint
+            spellingPattern = requiredStartingLetter + '?'.repeat(currentWordLength - 1);
+            console.log(`Datamuse Query Constraint: sp=${spellingPattern}`); // Debug log
+        }
+        // ---
+
+        const queryParams = new URLSearchParams({
+            sp: spellingPattern, // Use the determined pattern
+            max: TARGET_WORDS_TO_FETCH, // Fetch maybe more words due to constraint
+            md: 'f'
+        });
         const apiUrl = `${TARGET_WORD_API_URL}?${queryParams}`;
 
         try {
@@ -211,20 +232,45 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`API error fetching words: ${response.status} ${response.statusText}`);
             const data = await response.json();
             if (!Array.isArray(data)) throw new Error('Invalid word data received.');
+
+            // Filter results (same as before)
             const validWords = data.filter(item =>
                 item.word && item.word.length === currentWordLength && /^[a-z]+$/.test(item.word)
             ).map(item => item.word);
-            if (validWords.length === 0) throw new Error(`No valid ${currentWordLength}-letter words found from API.`);
-            targetWord = validWords[Math.floor(Math.random() * validWords.length)].toLowerCase();
-            console.log(`Target word for level ${currentLevel}: ${targetWord}`); // Debugging
 
-            // --- Calculate Duplicate Letters in Target ---
+            if (validWords.length === 0) {
+                 // Specific error if constraint likely caused failure
+                 if (currentLevel > START_LEVEL && requiredStartingLetter) {
+                     throw new Error(`No valid ${currentWordLength}-letter words starting with '${requiredStartingLetter}' found from API.`);
+                 } else {
+                    throw new Error(`No valid ${currentWordLength}-letter words found from API.`);
+                 }
+            }
+
+            // Select target word randomly from filtered list
+            targetWord = validWords[Math.floor(Math.random() * validWords.length)].toLowerCase();
+            console.log(`Target word for level ${currentLevel}: ${targetWord}`);
+
+            // --- Set the starting letter constraint *after* first word is chosen ---
+            if (currentLevel === START_LEVEL && targetWord) {
+                requiredStartingLetter = targetWord[0];
+                console.log(`Constraint set: words must start with '${requiredStartingLetter}'`);
+            }
+            // ---
+
+            // --- Calculate Duplicates --- (Same as before)
             const targetCounts = {};
             for (const char of targetWord) { targetCounts[char] = (targetCounts[char] || 0) + 1; }
             duplicateTargetLetters = new Set(Object.keys(targetCounts).filter(char => targetCounts[char] > 1));
             // ---
 
-            setMessage(`Level ${currentLevel - START_LEVEL + 1}: Guess the ${currentWordLength}-letter word.`);
+            // Update message with constraint info if applicable
+            let setupMsg = `Level ${currentLevel - START_LEVEL + 1}: Guess the ${currentWordLength}-letter word.`;
+             if (requiredStartingLetter && currentLevel > START_LEVEL) {
+                 setupMsg += ` (Starts with '${requiredStartingLetter.toUpperCase()}')`;
+             }
+            setMessage(setupMsg);
+
 
             if (!gameOver) { // Re-enable controls
                 hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
@@ -238,7 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ** RESTORED ** API Interaction for Guess Validation
+
+    // API Interaction for Guess Validation
     async function checkWordValidity(word) {
         setMessage("Checking word...");
         submitButton.disabled = true; // Disable while checking
@@ -271,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
          return feedback;
      }
 
-    // handleGuess - Restore validation call
+    // handleGuess - Uses validation call
     async function handleGuess() {
          if (gameOver || targetWord === '') return;
          const guess = hiddenGuessInput.value.trim().toLowerCase();
@@ -282,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
              return;
          }
 
-         // 2. ** RESTORED ** API Call for word validity check
+         // 2. API Call for word validity check
          const isValidWord = await checkWordValidity(guess);
          if (isValidWord === null) { // Handle API errors during check
               hiddenGuessInput.focus();
@@ -342,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
          if (shouldSaveState) { saveGameState(); }
      }
 
-    // --- Event Listeners --- (No changes needed)
+    // --- Event Listeners ---
     submitButton.addEventListener('click', handleGuess);
     hiddenGuessInput.addEventListener('input', updateVisualSquares);
     hiddenGuessInput.addEventListener('keydown', (event) => { if (event.key === 'Enter' && !submitButton.disabled) { handleGuess(); } });
