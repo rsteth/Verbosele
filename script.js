@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
          currentLevel = START_LEVEL; currentLives = MAX_LIVES; targetWord = '';
          currentWordLength = START_LEVEL; cumulativeGameHistory = []; // Reset cumulative history
          gameOver = false; gameWon = false; duplicateTargetLetters = new Set();
+         requiredStartingLetter = ''; // Reset the constraint
          gridContainer.innerHTML = ''; visualInputSquaresContainer.innerHTML = '';
      }
 
