@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbosele</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Verbosele</h1>
+
+    <div id="game-status">
+        <span id="level-display">Level: 1 (5 Letters)</span> |
+        <span id="lives-display">Lives: 10</span>
+    </div>
+
+    <div id="grid-container">
+        </div>
+
+    <div id="input-area">
+        <label for="guess-input" class="sr-only">Enter Guess</label> <div id="segmented-input-container" aria-label="Current guess input">
+            <div id="visual-input-squares"></div>
+            <input type="text" id="guess-input" autocomplete="off" spellcheck="false">
+        </div>
+        <button id="submit-guess">Guess</button>
+    </div>
+     <div id="message-area">
+        Welcome! Enter your first 5-letter guess.
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
