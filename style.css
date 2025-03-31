@@ -160,7 +160,6 @@ body {
 }
 #submit-guess:disabled { background-color: #cccccc; cursor: not-allowed; }
 
-
 /* Sr-only class for accessibility */
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -180,10 +179,3 @@ body {
     #status-controls-container { gap: 10px; } /* Reduce gap */
     #reset-button { font-size: 0.85em; padding: 5px 10px;}
 }
-
-
-/* Optional: Adjust base tile size if needed */
-/* :root { --tile-size: 50px; --tile-margin: 2.5px; } */
-/* .tile, .input-square { width: var(--tile-size); height: var(--tile-size); margin: 0 var(--tile-margin); } */
-/* #submit-guess { height: calc(var(--tile-size) + 4px); } */
-/* etc. */

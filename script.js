@@ -212,6 +212,20 @@ document.addEventListener('DOMContentLoaded', () => {
         targetWord = '';
         duplicateTargetLetters = new Set(); // Reset duplicates for new level
 
+        // --- Add Separator if starting a level beyond the first ---
+        // Check currentLevel and if grid already has content (to avoid adding on initial load before redraw)
+        if (currentLevel > START_LEVEL && gridContainer.children.length > 0) {
+            const separator = document.createElement('hr');
+            separator.classList.add('level-separator');
+            gridContainer.appendChild(separator);
+            // Optional: Ensure the separator or bottom of grid is visible
+             // gridContainer.scrollTop = gridContainer.scrollHeight; // Scrolls grid fully down
+             separator.scrollIntoView({ behavior: "smooth", block: "nearest" }); // Scrolls separator into view
+        }
+        // --- End Separator Logic ---
+
+        // DON'T clear gridContainer here - cumulative history requires it
+
         setupVisualInput(); // Setup input squares for the new length
         updateStatusDisplay(); // Update level display
 
@@ -220,79 +234,60 @@ document.addEventListener('DOMContentLoaded', () => {
         let patternConstraint = false; // Flag to check if constraint applied
         let spellingPattern;
         if (currentLevel === START_LEVEL || !requiredStartingLetter) {
-            // First level, or constraint not set (e.g., loaded old save state)
             spellingPattern = '?'.repeat(currentWordLength);
         } else {
-            // Subsequent levels: apply the constraint
             spellingPattern = requiredStartingLetter + '?'.repeat(currentWordLength - 1);
             patternConstraint = true; // Mark that constraint is active
             setMessage(`Workspaceing ${currentWordLength}-letter words starting with '${requiredStartingLetter.toUpperCase()}'...`);
-            console.log(`Datamuse Query Constraint: sp=${spellingPattern}`); // Debug log
+            console.log(`Datamuse Query Constraint: sp=${spellingPattern}`);
         }
-        // ---
 
         const queryParams = new URLSearchParams({
-            sp: spellingPattern, // Use the determined pattern
-            max: TARGET_WORDS_TO_FETCH, // Fetch maybe more words due to constraint
+            sp: spellingPattern,
+            max: TARGET_WORDS_TO_FETCH,
             md: 'f'
         });
         const apiUrl = `${TARGET_WORD_API_URL}?${queryParams}`;
 
         try {
-            // --- Fetch and Select Word ---
+            // --- Fetch and Select Word --- (Same as before)
             const response = await fetch(apiUrl);
             if (!response.ok) throw new Error(`API error fetching words: ${response.status} ${response.statusText}`);
             const data = await response.json();
             if (!Array.isArray(data)) throw new Error('Invalid word data received.');
-
-            // Filter results (same as before)
             const validWords = data.filter(item =>
                 item.word && item.word.length === currentWordLength && /^[a-z]+$/.test(item.word)
             ).map(item => item.word);
-
-            if (validWords.length === 0) {
-                 // Specific error if constraint likely caused failure
-                 if (patternConstraint) { // Check flag here
-                     throw new Error(`No valid ${currentWordLength}-letter words starting with '${requiredStartingLetter}' found from API.`);
-                 } else {
-                    throw new Error(`No valid ${currentWordLength}-letter words found from API.`);
-                 }
-            }
-
-            // Select target word randomly from filtered list
+            if (validWords.length === 0) { if (patternConstraint) { throw new Error(`No valid ${currentWordLength}-letter words starting with '${requiredStartingLetter}' found from API.`); } else { throw new Error(`No valid ${currentWordLength}-letter words found from API.`); } }
             targetWord = validWords[Math.floor(Math.random() * validWords.length)].toLowerCase();
             console.log(`Target word for level ${currentLevel}: ${targetWord}`);
 
-            // --- Set the starting letter constraint *after* first word is chosen ---
+            // --- Set the starting letter constraint --- (Same as before)
             if (currentLevel === START_LEVEL && targetWord) {
                 requiredStartingLetter = targetWord[0];
                 console.log(`Constraint set: words must start with '${requiredStartingLetter}'`);
             }
-            // ---
 
             // --- Calculate Duplicates --- (Same as before)
             const targetCounts = {};
             for (const char of targetWord) { targetCounts[char] = (targetCounts[char] || 0) + 1; }
             duplicateTargetLetters = new Set(Object.keys(targetCounts).filter(char => targetCounts[char] > 1));
-            // ---
 
-            // Update message with constraint info if applicable
+            // --- Update UI & Save --- (Same as before)
             let setupMsg = `Level ${currentLevel - START_LEVEL + 1}: Guess the ${currentWordLength}-letter word.`;
              if (requiredStartingLetter && currentLevel > START_LEVEL) {
                  setupMsg += ` (Starts with '${requiredStartingLetter.toUpperCase()}')`;
              }
             setMessage(setupMsg);
-
-
-            if (!gameOver) { // Re-enable controls
+            if (!gameOver) {
                 hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
             }
-            saveGameState(); // Save state AFTER successfully setting up the level
+            saveGameState();
 
         } catch (error) {
             console.error("Error setting up level:", error);
             setMessage(`Failed to start level ${currentLevel - START_LEVEL + 1}. Error: ${error.message}. Please refresh.`);
-            endGame(false, false); // End game, don't save state on error
+            endGame(false, false);
         }
     }
 
