@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const END_LEVEL = 9;
     const GUESS_VALIDATION_API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     const TARGET_WORD_API_URL = "https://api.datamuse.com/words";
-    const TARGET_WORDS_TO_FETCH = 100; // Fetch more to increase chance of finding constrained words
-    const LOCAL_STORAGE_KEY = 'progressiveWordleState_v10'; // Key from version with constraint
+    const TARGET_WORDS_TO_FETCH = 300; // Fetch more to increase chance of finding constrained words
+    const LOCAL_STORAGE_KEY = 'progressiveWordleState_v11'; // Key from version with constraint
 
     // --- DOM Elements ---
     const levelDisplay = document.getElementById('level-display');
@@ -17,18 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const segmentedInputContainer = document.getElementById('segmented-input-container');
     const visualInputSquaresContainer = document.getElementById('visual-input-squares');
     const hiddenGuessInput = document.getElementById('guess-input');
-    // const resetButton = document.getElementById('reset-button');
+    const resetButton = document.getElementById('reset-button'); // Get reset button reference
 
     // --- Game State Variables ---
     let currentLevel = START_LEVEL;
     let currentLives = MAX_LIVES;
     let targetWord = '';
     let currentWordLength = START_LEVEL;
-    let cumulativeGameHistory = []; // Stores ALL guesses: {guess, feedback, wordLength}
+    let cumulativeGameHistory = [];
     let gameOver = false;
     let gameWon = false;
     let visualInputSquares = [];
-    let duplicateTargetLetters = new Set(); // Stores duplicate letters in the current target
+    let duplicateTargetLetters = new Set();
     let requiredStartingLetter = ''; // Stores the required starting letter after level 1
 
     // --- State Management Functions (localStorage) ---
@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentLives = savedState.currentLives;
                 targetWord = savedState.targetWord;
                 currentWordLength = savedState.currentWordLength || (targetWord ? targetWord.length : START_LEVEL);
-                cumulativeGameHistory = savedState.cumulativeGameHistory || []; // Load cumulative history
+                cumulativeGameHistory = savedState.cumulativeGameHistory || [];
                 gameOver = savedState.gameOver;
                 gameWon = savedState.gameWon;
-                duplicateTargetLetters = new Set(savedState.duplicateTargetLetters || []); // Load current duplicates
+                duplicateTargetLetters = new Set(savedState.duplicateTargetLetters || []);
                 requiredStartingLetter = savedState.requiredStartingLetter || ''; // Load the constraint
                 return true;
             } else { throw new Error("Invalid state structure"); }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
      function clearGameState() {
          if (typeof(Storage) !== "undefined") { localStorage.removeItem(LOCAL_STORAGE_KEY); }
          currentLevel = START_LEVEL; currentLives = MAX_LIVES; targetWord = '';
-         currentWordLength = START_LEVEL; cumulativeGameHistory = []; // Reset cumulative history
+         currentWordLength = START_LEVEL; cumulativeGameHistory = [];
          gameOver = false; gameWon = false; duplicateTargetLetters = new Set();
          requiredStartingLetter = ''; // Reset the constraint
          gridContainer.innerHTML = ''; visualInputSquaresContainer.innerHTML = '';
@@ -159,9 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
          setMessage("Initializing game...");
          hiddenGuessInput.disabled = true; submitButton.disabled = true;
 
+         if (forceNew) {
+              console.log("Forcing new game state via reset.");
+              clearGameState(); // Explicitly clear state first when forcing new
+         }
+
+         // Try loading state ONLY if not forcing new
          if (!forceNew && loadGameState()) {
              // Restore UI from loaded state
-             updateStatusDisplay(); redrawCumulativeGrid(); setupVisualInput(); updateVisualSquares();
+             updateStatusDisplay();
+             redrawCumulativeGrid();
+             setupVisualInput();
+             updateVisualSquares();
              if (gameOver) {
                  endGame(gameWon, false); // Update UI for ended state
                  setMessage(gameWon ? `Game previously won!` : `Game previously lost.`);
@@ -180,9 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
                   }
              }
          } else {
-             // Start fresh game
-             clearGameState(); // Resets requiredStartingLetter
-             currentLevel = START_LEVEL; currentLives = MAX_LIVES;
+             // Start fresh (clearGameState was already called if forceNew)
+             if (!forceNew) {
+                 // If load failed but wasn't forced, ensure state is truly clear
+                 // (clearGameState also resets variables, load only does if load fails AND forceNew is false)
+                 clearGameState(); // Call again ensure vars are reset
+             }
+             currentLevel = START_LEVEL; // Set explicitly for new game start
+             currentLives = MAX_LIVES; // Set explicitly for new game start
              redrawCumulativeGrid(); // Draw empty grid initially
              await setupLevel(); // Setup first level (fetches word, sets constraint)
              updateStatusDisplay();
@@ -203,12 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setMessage(`Workspaceing ${currentWordLength}-letter words...`);
         // Add constraint info to fetching message if applicable
-        if (requiredStartingLetter && currentLevel > START_LEVEL) {
-             setMessage(`Workspaceing ${currentWordLength}-letter words starting with '${requiredStartingLetter.toUpperCase()}'...`);
-        }
-        hiddenGuessInput.disabled = true; submitButton.disabled = true;
-
-        // --- Determine Spelling Pattern based on constraint ---
+        let patternConstraint = false; // Flag to check if constraint applied
         let spellingPattern;
         if (currentLevel === START_LEVEL || !requiredStartingLetter) {
             // First level, or constraint not set (e.g., loaded old save state)
@@ -216,6 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Subsequent levels: apply the constraint
             spellingPattern = requiredStartingLetter + '?'.repeat(currentWordLength - 1);
+            patternConstraint = true; // Mark that constraint is active
+            setMessage(`Workspaceing ${currentWordLength}-letter words starting with '${requiredStartingLetter.toUpperCase()}'...`);
             console.log(`Datamuse Query Constraint: sp=${spellingPattern}`); // Debug log
         }
         // ---
@@ -241,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (validWords.length === 0) {
                  // Specific error if constraint likely caused failure
-                 if (currentLevel > START_LEVEL && requiredStartingLetter) {
+                 if (patternConstraint) { // Check flag here
                      throw new Error(`No valid ${currentWordLength}-letter words starting with '${requiredStartingLetter}' found from API.`);
                  } else {
                     throw new Error(`No valid ${currentWordLength}-letter words found from API.`);
@@ -395,7 +406,17 @@ document.addEventListener('DOMContentLoaded', () => {
     hiddenGuessInput.addEventListener('input', updateVisualSquares);
     hiddenGuessInput.addEventListener('keydown', (event) => { if (event.key === 'Enter' && !submitButton.disabled) { handleGuess(); } });
     segmentedInputContainer.addEventListener('click', () => { if (!hiddenGuessInput.disabled) { hiddenGuessInput.focus(); } });
-    // resetButton?.addEventListener('click', () => initGame(true));
+
+    // Reset Button Listener
+    if (resetButton) { // Check if the button element exists
+        resetButton.addEventListener('click', () => {
+            console.log("Reset button clicked");
+            // Force a new game, ignoring saved state and clearing current state
+            initGame(true);
+        });
+    } else {
+        console.warn("Reset button element not found in HTML.");
+    }
 
     // --- Start Game ---
     initGame(); // Attempt to load state or start fresh
