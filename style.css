@@ -1,210 +1,154 @@
-/* --- Keep all previous styles for body, #game-status, #grid-container, .grid-row, .tile, etc. --- */
-
+/* --- body, #game-status, .tile colors etc. --- */
 body {
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Center title, status, messages */
     background-color: #f4f4f4;
     margin-top: 20px;
 }
 
 #game-status {
     margin-bottom: 15px;
-    font-size: 1.1em;
-    font-weight: bold;
-    background-color: #e0e0e0;
-    padding: 5px 15px;
-    border-radius: 5px;
+    font-size: 1.1em; font-weight: bold;
+    background-color: #e0e0e0; padding: 5px 15px; border-radius: 5px;
 }
 
+/* --- Game Area Wrapper --- */
+#game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align children (grid, input) to the left */
+    max-width: 600px; /* Max width of the game area */
+    width: 95%; /* Use most of the width up to max-width */
+    margin: 0 auto 20px auto; /* Center the game area block itself */
+    padding: 0 10px; /* Add some padding inside the game area */
+    box-sizing: border-box;
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+/* --- Grid Container & Rows --- */
 #grid-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 400px;
+    /* align-items: flex-start; /* Already default for block children */
+    margin-bottom: 10px; /* Space between grid and input area */
+    width: 100%; /* Take full width of game-area */
     box-sizing: border-box;
 }
 
 .grid-row {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; /* CHANGED */
+    justify-content: flex-start; /* Left-align tiles within the row */
     margin-bottom: 5px;
-    width: 100%;
+    width: auto; /* Let width be determined by tiles */
+    /* width: 100%; /* OLD - makes row stretch */
     box-sizing: border-box;
 }
 
-.tile { /* Style for PAST guess tiles */
-    width: 50px;
-    height: 50px;
-    border: 2px solid #d3d6da;
-    margin: 0 2.5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8em;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #333;
-    background-color: #fff;
-    box-sizing: border-box;
-    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
+/* --- Tiles (Past Guesses) --- */
+.tile {
+    width: 50px; height: 50px; border: 2px solid #d3d6da; margin: 0 2.5px;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.8em; font-weight: bold; text-transform: uppercase;
+    color: #333; background-color: #fff; box-sizing: border-box;
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, transform 0.5s ease, text-shadow 0.5s ease; /* Added text-shadow */
     transform-style: preserve-3d;
 }
+.tile.reveal { transform: rotateX(360deg); }
+.tile.correct { background-color: #6aaa64; border-color: #6aaa64; color: white; }
+.tile.present { background-color: #c9b458; border-color: #c9b458; color: white; }
+.tile.absent { background-color: #787c7e; border-color: #787c7e; color: white; }
 
-.tile.reveal {
-    transform: rotateX(360deg);
+/* --- Glow Effect for Duplicate Letters --- */
+.tile.glow-duplicate {
+  /* Yellow glow color from .present */
+  /* Adjust blur (3rd value) and spread (4th value, optional) */
+  box-shadow: 0 0 5px #c3a728, 0 0 12px #c9b458;
 }
 
-.tile.correct { /* Green */
-    background-color: #6aaa64;
-    border-color: #6aaa64;
-    color: white;
-}
-
-.tile.present { /* Yellow */
-    background-color: #c9b458;
-    border-color: #c9b458;
-    color: white;
-}
-
-.tile.absent { /* Gray */
-    background-color: #787c7e;
-    border-color: #787c7e;
-    color: white;
+.level-separator {
+    width: 90%; /* Make separator slightly less wide than grid */
+    max-width: 300px; /* Max width for separator */
+    margin: 15px auto 10px auto; /* Spacing above and below */
+    border: none; /* Remove default border */
+    border-top: 2px dashed #ccc; /* Style as a dashed line */
+    height: 0;
 }
 
 
-/* --- New Styles for Segmented Input Area --- */
-
+/* --- Input Area & Segmented Input --- */
 #input-area {
     display: flex;
-    align-items: center; /* Vertically align items */
-    justify-content: center; /* Center items horizontally */
+    align-items: center;
+    /* justify-content: center; /* CHANGED */
+    justify-content: flex-start; /* Left-align input container and button */
     margin-bottom: 15px;
-    gap: 10px; /* Space between input container and button */
+    gap: 10px;
+    width: 100%; /* Take full width of game-area */
+    box-sizing: border-box;
 }
 
 #segmented-input-container {
-    position: relative; /* Needed for absolute positioning of hidden input */
-    display: inline-block; /* Allow button to be beside it */
-    cursor: text; /* Indicate it's clickable for focus */
+    position: relative;
+    display: inline-block;
+    cursor: text;
 }
 
 #visual-input-squares {
     display: flex;
-    justify-content: center;
-    gap: 5px; /* Space between visual squares */
-    z-index: 0; /* Ensure it's behind the hidden input */
+    /* justify-content: center; /* CHANGED */
+    justify-content: flex-start; /* Left-align visual squares */
+    gap: 5px;
+    z-index: 0;
 }
 
-.input-square {
-    /* Style like .tile but maybe slightly different border/bg */
-    width: 50px;
-    height: 50px;
-    border: 2px solid #888; /* Darker border for active input row */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8em;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #111;
-    background-color: #fff;
-    box-sizing: border-box;
+.input-square { /* Style for CURRENT input squares */
+    width: 50px; height: 50px; border: 2px solid #888;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.8em; font-weight: bold; text-transform: uppercase;
+    color: #111; background-color: #fff; box-sizing: border-box;
+}
+.input-square.filled { border-color: #333; }
+
+#guess-input { /* Hidden Input */
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;
+    border: none; outline: none; font-size: 1px; color: transparent;
+    background: transparent; caret-color: transparent; padding: 0; margin: 0;
+    text-transform: uppercase; z-index: 1; cursor: text;
 }
 
-/* Style for visual squares when they contain a letter */
-.input-square.filled {
-    border-color: #333; /* Slightly darker border when filled */
+#submit-guess { /* Button */
+    padding: 10px 15px; font-size: 1em; cursor: pointer; background-color: #4CAF50;
+    color: white; border: none; border-radius: 3px; height: 54px; box-sizing: border-box;
+    flex-shrink: 0; /* Prevent button from shrinking */
 }
+#submit-guess:disabled { background-color: #cccccc; cursor: not-allowed; }
 
-/* The actual hidden input field */
-#guess-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* Make it invisible */
-    border: none;
-    outline: none; /* Hide focus outline on the input itself */
-    font-size: 1px; /* Minimize size */
-    color: transparent; /* Hide text/caret */
-    background: transparent;
-    caret-color: transparent;
-    padding: 0;
-    margin: 0;
-    text-transform: uppercase; /* Keep behavior consistent */
-    z-index: 1; /* Place it above visual squares */
-    cursor: text; /* Inherit cursor */
-}
-
-/* Optional: Style container on focus to mimic input focus */
-#segmented-input-container:focus-within {
-   /* You could add an outline here, but default browser focus
-      on the container might be sufficient */
-   /* outline: 2px solid dodgerblue; */
-   /* outline-offset: 2px; */
-}
-
-
-#submit-guess { /* Existing button styles */
-    padding: 10px 15px;
-    font-size: 1em;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    height: 54px; /* Match height of input squares */
-    box-sizing: border-box;
-}
-
-#submit-guess:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
-
-#message-area { /* Existing message styles */
-    margin-top: 10px;
-    font-weight: bold;
-    min-height: 20px;
-    padding: 5px;
-    text-align: center;
-    background-color: #fff;
-    border-radius: 5px;
+#message-area { /* Message Area */
+    margin-top: 10px; font-weight: bold; min-height: 20px; padding: 5px;
+    text-align: center; background-color: #fff; border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 90%; max-width: 500px; /* Center message area too */
 }
 
-/* Sr-only class for accessibility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+.sr-only { /* Accessibility */
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
 }
 
 
-/* Media query for smaller screens if needed */
+/* --- Media Queries --- */
 @media (max-width: 480px) {
-    .tile, .input-square {
-        width: 40px;
-        height: 40px;
-        font-size: 1.5em;
-    }
-     #grid-container, #input-area {
-        max-width: 95%;
-    }
-    #submit-guess {
-        height: 44px; /* Match smaller squares */
-        padding: 8px 12px;
-    }
+    .tile, .input-square { width: 40px; height: 40px; font-size: 1.5em; }
+    #submit-guess { height: 44px; padding: 8px 12px; }
+    #game-area { padding: 0 5px; /* Reduce padding */ }
+}
+@media (max-width: 360px) {
+    .tile, .input-square { width: 35px; height: 35px; font-size: 1.3em; margin: 0 1.5px;}
+     #visual-input-squares { gap: 3px;}
+     .grid-row { margin-bottom: 3px;}
+    #submit-guess { height: 39px; padding: 6px 10px; }
 }

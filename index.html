@@ -11,20 +11,23 @@
 
     <div id="game-status">
         <span id="level-display">Level: 1 (5 Letters)</span> |
-        <span id="lives-display">Lives: 10</span>
+        <span id="lives-display">Lives: 16</span>
     </div>
 
-    <div id="grid-container">
-        </div>
+    <div id="game-area">
+        <div id="grid-container">
+            </div>
 
-    <div id="input-area">
-        <label for="guess-input" class="sr-only">Enter Guess</label> <div id="segmented-input-container" aria-label="Current guess input">
-            <div id="visual-input-squares"></div>
-            <input type="text" id="guess-input" autocomplete="off" spellcheck="false">
+        <div id="input-area">
+            <label for="guess-input" class="sr-only">Enter Guess</label>
+            <div id="segmented-input-container" aria-label="Current guess input">
+                <div id="visual-input-squares"></div>
+                <input type="text" id="guess-input" autocomplete="off" spellcheck="false">
+            </div>
+            <button id="submit-guess">Guess</button>
         </div>
-        <button id="submit-guess">Guess</button>
     </div>
-     <div id="message-area">
+    <div id="message-area">
         Welcome! Enter your first 5-letter guess.
     </div>
 
