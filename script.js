@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Constants ---
-    const MAX_LIVES = 16;
+    const MAX_LIVES = 18;
     const START_LEVEL = 5;
     const END_LEVEL = 9;
     const GUESS_VALIDATION_API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
