@@ -89,6 +89,7 @@ body {
     box-sizing: border-box;
     overflow-y: auto;
     max-height: 60vh; /* Still limit height */
+    padding-top: 4px;
     padding-bottom: 10px;
 }
 @supports (scroll-behavior: smooth) { #grid-container { scroll-behavior: smooth; } }
@@ -115,7 +116,7 @@ body {
 .tile.correct { background-color: #6aaa64; border-color: #6aaa64; color: white; }
 .tile.present { background-color: #c9b458; border-color: #c9b458; color: white; }
 .tile.absent { background-color: #787c7e; border-color: #787c7e; color: white; }
-.tile.glow-duplicate { box-shadow: 0 0 6px #c9b458, 0 0 10px #c9bb7c; }
+.tile.glow-duplicate { outline: 2px solid #ffd000; } /* box-shadow: 0 0 6px #c9b458, 0 0 10px #c9bb7c; */ }
 
 /* --- Input Area & Segmented Input --- */
 /* Width now determined by content */
