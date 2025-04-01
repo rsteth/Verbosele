@@ -138,13 +138,16 @@ body {
     cursor: text;
 }
 #visual-input-squares { /* Width determined by squares */
-    display: flex; justify-content: flex-start;
-    gap: 5px; z-index: 0;
+    display: flex; 
+    justify-content: flex-start;
+    gap: 0; /* Remove gap to match tile spacing */
+    z-index: 0;
 }
-.input-square { /* Fixed width/height */
+.input-square { /* Match tile styling */
     width: 50px; 
     height: 50px; 
-    border: 2px solid #888;
+    border: 2px solid #d3d6da; /* Match tile border color */
+    margin: 0 2.5px; /* Match tile margin */
     display: flex; 
     justify-content: center; 
     align-items: center;
@@ -155,8 +158,9 @@ body {
     background-color: #fff; 
     box-sizing: border-box; 
     flex-shrink: 0;
+    /* transition: border-color 0.3s ease; /* Smooth transition for border color change */
 }
-.input-square.filled { border-color: #333; }
+/*.input-square.filled { border-color: #333; }*/
 
 #guess-input { /* Hidden Input */
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;
