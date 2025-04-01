@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const GUESS_VALIDATION_API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     const TARGET_WORD_API_URL = "https://api.datamuse.com/words";
     const TARGET_WORDS_TO_FETCH = 300; // Fetch more to increase chance of finding constrained words
-    const LOCAL_STORAGE_KEY = 'progressiveWordleState_v11'; // Key from version with constraint
+    const LOCAL_STORAGE_KEY = 'progressiveWordleState_v12';
 
     // --- DOM Elements ---
     const levelDisplay = document.getElementById('level-display');
@@ -70,12 +70,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
      function clearGameState() {
-         if (typeof(Storage) !== "undefined") { localStorage.removeItem(LOCAL_STORAGE_KEY); }
-         currentLevel = START_LEVEL; currentLives = MAX_LIVES; targetWord = '';
-         currentWordLength = START_LEVEL; cumulativeGameHistory = [];
-         gameOver = false; gameWon = false; duplicateTargetLetters = new Set();
-         requiredStartingLetter = ''; // Reset the constraint
-         gridContainer.innerHTML = ''; visualInputSquaresContainer.innerHTML = '';
+         // Clear localStorage
+         if (typeof(Storage) !== "undefined") { 
+             localStorage.removeItem(LOCAL_STORAGE_KEY); 
+         }
+         
+         // Reset game variables
+         currentLevel = START_LEVEL; 
+         currentLives = MAX_LIVES; 
+         targetWord = '';
+         currentWordLength = START_LEVEL; 
+         cumulativeGameHistory = [];
+         gameOver = false; 
+         gameWon = false; 
+         duplicateTargetLetters = new Set();
+         requiredStartingLetter = ''; 
+         
+         // Clear UI elements
+         gridContainer.innerHTML = ''; 
+         visualInputSquaresContainer.innerHTML = '';
      }
 
 
@@ -101,55 +114,70 @@ document.addEventListener('DOMContentLoaded', () => {
         const row = document.createElement('div');
         row.classList.add('grid-row');
 
-        for (let i = 0; i < wordLength; i++) { // Use passed wordLength
+        for (let i = 0; i < wordLength; i++) {
             const tile = document.createElement('div');
             tile.classList.add('tile');
-            const letter = guess[i] ? guess[i].toLowerCase() : ''; // Get letter safely
+            const letter = guess[i] ? guess[i].toLowerCase() : '';
             tile.textContent = guess[i] || '';
 
-            // Add glow class ONLY if the letter is a known duplicate AND it belongs to the CURRENT level
+            // Add glow for duplicate letters in current level
             if (letter && wordLength === currentWordLength && duplicateTargetLetters.has(letter)) {
                 tile.classList.add('glow-duplicate');
             }
 
             // Apply feedback color class
             if (immediate) {
-                if (feedback[i]) tile.classList.add(feedback[i]);
+                if (feedback[i]) {
+                    tile.classList.add(feedback[i]);
+                }
             } else {
-                // Stagger reveal animation only for non-immediate rendering (new guesses)
+                // Stagger reveal animation for new guesses
                 setTimeout(() => {
-                    if (feedback[i]) tile.classList.add(feedback[i]);
+                    if (feedback[i]) {
+                        tile.classList.add(feedback[i]);
+                    }
                     tile.classList.add('reveal');
                 }, i * 100);
             }
             row.appendChild(tile);
         }
-        gridContainer.appendChild(row); // Append the completed row
+        gridContainer.appendChild(row);
 
-        // Scroll only for new guesses (not immediate redraws)
+        // Scroll for new guesses only
         if (!immediate) {
-             segmentedInputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            segmentedInputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
 
-    function updateStatusDisplay() {
+     function updateStatusDisplay() {
          const displayLength = currentWordLength || currentLevel;
          levelDisplay.textContent = `Level: ${currentLevel - START_LEVEL + 1} (${displayLength} Letters)`;
          livesDisplay.textContent = `Lives: ${currentLives}`;
      }
-     function setMessage(msg) { messageArea.textContent = msg; }
+     
+     function setMessage(msg) { 
+         messageArea.textContent = msg; 
+     }
+     
      function setupVisualInput() {
-         visualInputSquaresContainer.innerHTML = ''; visualInputSquares = [];
-         hiddenGuessInput.maxLength = currentWordLength; hiddenGuessInput.value = '';
+         visualInputSquaresContainer.innerHTML = ''; 
+         visualInputSquares = [];
+         hiddenGuessInput.maxLength = currentWordLength; 
+         hiddenGuessInput.value = '';
+         
          for (let i = 0; i < currentWordLength; i++) {
-             const square = document.createElement('div'); square.classList.add('input-square');
-             visualInputSquaresContainer.appendChild(square); visualInputSquares.push(square);
+             const square = document.createElement('div'); 
+             square.classList.add('input-square');
+             visualInputSquaresContainer.appendChild(square); 
+             visualInputSquares.push(square);
          }
      }
+     
      function updateVisualSquares() {
          const currentValue = hiddenGuessInput.value.toUpperCase();
          visualInputSquares.forEach((square, index) => {
-             const char = currentValue[index]; square.textContent = char || '';
+             const char = currentValue[index]; 
+             square.textContent = char || '';
              square.classList.toggle('filled', !!char);
          });
      }
@@ -212,24 +240,20 @@ document.addEventListener('DOMContentLoaded', () => {
         targetWord = '';
         duplicateTargetLetters = new Set(); // Reset duplicates for new level
 
-        // --- Add Separator if starting a level beyond the first ---
-        // Check currentLevel and if grid already has content (to avoid adding on initial load before redraw)
+        // Add separator if starting a level beyond the first
         if (currentLevel > START_LEVEL && gridContainer.children.length > 0) {
             const separator = document.createElement('hr');
             separator.classList.add('level-separator');
             gridContainer.appendChild(separator);
-            // Optional: Ensure the separator or bottom of grid is visible
-             // gridContainer.scrollTop = gridContainer.scrollHeight; // Scrolls grid fully down
-             separator.scrollIntoView({ behavior: "smooth", block: "nearest" }); // Scrolls separator into view
+            separator.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
-        // --- End Separator Logic ---
 
         // DON'T clear gridContainer here - cumulative history requires it
 
         setupVisualInput(); // Setup input squares for the new length
         updateStatusDisplay(); // Update level display
 
-        setMessage(`Workspaceing ${currentWordLength}-letter words...`);
+        setMessage(`Finding ${currentWordLength}-letter words...`);
         // Add constraint info to fetching message if applicable
         let patternConstraint = false; // Flag to check if constraint applied
         let spellingPattern;
@@ -238,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             spellingPattern = requiredStartingLetter + '?'.repeat(currentWordLength - 1);
             patternConstraint = true; // Mark that constraint is active
-            setMessage(`Workspaceing ${currentWordLength}-letter words starting with '${requiredStartingLetter.toUpperCase()}'...`);
+            setMessage(`Finding ${currentWordLength}-letter words starting with '${requiredStartingLetter.toUpperCase()}'...`);
             console.log(`Datamuse Query Constraint: sp=${spellingPattern}`);
         }
 
@@ -315,103 +339,147 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // calculateFeedback - NO CHANGES NEEDED
     function calculateFeedback(guess, target) {
-         const feedback = Array(target.length).fill(null); const targetCounts = {};
-         const guessLower = guess.toLowerCase(); const targetLower = target.toLowerCase();
-         for (const char of targetLower) { targetCounts[char] = (targetCounts[char] || 0) + 1; }
-         for (let i = 0; i < targetLower.length; i++) { if (guessLower[i] === targetLower[i]) { feedback[i] = 'correct'; targetCounts[targetLower[i]]--; } }
-         for (let i = 0; i < targetLower.length; i++) { if (feedback[i] === null) { if (targetCounts[guessLower[i]] > 0 && targetLower.includes(guessLower[i])) { feedback[i] = 'present'; targetCounts[guessLower[i]]--; } else { feedback[i] = 'absent'; } } }
-         return feedback;
-     }
+        const feedback = Array(target.length).fill(null);
+        const targetCounts = {};
+        const guessLower = guess.toLowerCase();
+        const targetLower = target.toLowerCase();
+        
+        // Count occurrences of each letter in target word
+        for (const char of targetLower) { 
+            targetCounts[char] = (targetCounts[char] || 0) + 1; 
+        }
+        
+        // First pass: mark correct positions
+        for (let i = 0; i < targetLower.length; i++) { 
+            if (guessLower[i] === targetLower[i]) { 
+                feedback[i] = 'correct'; 
+                targetCounts[targetLower[i]]--; 
+            } 
+        }
+        
+        // Second pass: mark present but incorrect positions or absent
+        for (let i = 0; i < targetLower.length; i++) { 
+            if (feedback[i] === null) { 
+                if (targetCounts[guessLower[i]] > 0 && targetLower.includes(guessLower[i])) { 
+                    feedback[i] = 'present'; 
+                    targetCounts[guessLower[i]]--; 
+                } else { 
+                    feedback[i] = 'absent'; 
+                } 
+            } 
+        }
+        
+        return feedback;
+    }
 
-    // handleGuess - Uses validation call
     async function handleGuess() {
-         if (gameOver || targetWord === '') return;
-         const guess = hiddenGuessInput.value.trim().toLowerCase();
+        if (gameOver || targetWord === '') return;
+        const guess = hiddenGuessInput.value.trim().toLowerCase();
 
-         // 1. Validate Length
-         if (guess.length !== currentWordLength) {
-             setMessage(`Guess must be ${currentWordLength} letters long.`);
-             return;
-         }
+        // Validate input length
+        if (guess.length !== currentWordLength) {
+            setMessage(`Guess must be ${currentWordLength} letters long.`);
+            return;
+        }
 
-         // 2. API Call for word validity check
-         const isValidWord = await checkWordValidity(guess);
-         if (isValidWord === null) { // Handle API errors during check
-              hiddenGuessInput.focus();
-              // Message already set by checkWordValidity on error
-              return;
-          }
-         if (!isValidWord) { // Handle case where word is not found in dictionary
-             setMessage(`'${guess.toUpperCase()}' is not a valid word.`);
-             hiddenGuessInput.select(); // Select the invalid word for easy correction
-             return;
-         }
-         // --- Word is valid, process the guess ---
+        // Validate word exists in dictionary
+        const isValidWord = await checkWordValidity(guess);
+        if (isValidWord === null) { 
+            // Handle API errors during check
+            hiddenGuessInput.focus();
+            // Message already set by checkWordValidity on error
+            return;
+        }
+        if (!isValidWord) { 
+            setMessage(`'${guess.toUpperCase()}' is not a valid word.`);
+            hiddenGuessInput.select(); // Select the invalid word for easy correction
+            return;
+        }
 
-         setMessage(""); // Clear validation messages
-         currentLives--;
-         updateStatusDisplay();
+        // Process valid guess
+        setMessage(""); // Clear validation messages
+        currentLives--;
+        updateStatusDisplay();
 
-         const feedback = calculateFeedback(guess, targetWord);
+        // Calculate feedback and update history
+        const feedback = calculateFeedback(guess, targetWord);
+        const historyEntry = { 
+            guess: guess, 
+            feedback: feedback, 
+            wordLength: currentWordLength 
+        };
+        cumulativeGameHistory.push(historyEntry);
 
-         // Add to cumulative history
-         const historyEntry = { guess: guess, feedback: feedback, wordLength: currentWordLength };
-         cumulativeGameHistory.push(historyEntry);
+        // Update UI
+        displayGuessRow(guess.toUpperCase(), feedback, currentWordLength, false);
+        hiddenGuessInput.value = ''; 
+        updateVisualSquares();
 
-         // Append ONLY the new row to the grid
-         displayGuessRow(guess.toUpperCase(), feedback, currentWordLength, false); // Pass false for animation
+        // Check game state
+        const correctGuess = guess === targetWord;
+        const outOfLives = currentLives <= 0;
 
-         hiddenGuessInput.value = ''; updateVisualSquares(); // Clear input
+        if (correctGuess) {
+            handleCorrectGuess();
+        } else if (outOfLives) {
+            handleOutOfLives();
+        } else {
+            saveGameState();
+            hiddenGuessInput.focus();
+        }
+    }
 
-         // --- Check Win/Loss/Continue ---
-         const correctGuess = guess === targetWord;
-         const outOfLives = currentLives <= 0;
+    function handleCorrectGuess() {
+        setMessage(`Correct! The word was ${targetWord.toUpperCase()}.`);
+        if (currentLevel === END_LEVEL) { 
+            gameWon = true; 
+            endGame(true); 
+        } else {
+            setMessage(`Level Complete! Preparing next level...`);
+            hiddenGuessInput.disabled = true; 
+            submitButton.disabled = true;
+            currentLevel++;
+            setTimeout(async () => {
+                await setupLevel();
+            }, 1500);
+        }
+    }
 
-         if (correctGuess) {
-             setMessage(`Correct! The word was ${targetWord.toUpperCase()}.`);
-             if (currentLevel === END_LEVEL) { gameWon = true; endGame(true); }
-             else {
-                 setMessage(`Level Complete! Preparing next level...`);
-                 hiddenGuessInput.disabled = true; submitButton.disabled = true;
-                 currentLevel++;
-                 setTimeout(async () => {
-                    await setupLevel(); // setupLevel now handles state saving etc.
-                 }, 1500);
-             }
-         } else if (outOfLives) {
-             setMessage(`Out of lives! The word was ${targetWord.toUpperCase()}. Game Over!`);
-             endGame(false);
-         } else {
-             saveGameState(); // Save cumulative history after guess
-             hiddenGuessInput.focus();
-         }
-     }
+    function handleOutOfLives() {
+        setMessage(`Out of lives! The word was ${targetWord.toUpperCase()}. Game Over!`);
+        endGame(false);
+    }
 
-    // endGame - NO CHANGES NEEDED
     function endGame(win, shouldSaveState = true) {
-         gameOver = true; gameWon = win;
-         hiddenGuessInput.disabled = true; submitButton.disabled = true;
-         if (shouldSaveState) { saveGameState(); }
-     }
+        gameOver = true; 
+        gameWon = win;
+        hiddenGuessInput.disabled = true; 
+        submitButton.disabled = true;
+        if (shouldSaveState) { 
+            saveGameState(); 
+        }
+    }
 
     // --- Event Listeners ---
     submitButton.addEventListener('click', handleGuess);
     hiddenGuessInput.addEventListener('input', updateVisualSquares);
-    hiddenGuessInput.addEventListener('keydown', (event) => { if (event.key === 'Enter' && !submitButton.disabled) { handleGuess(); } });
-    segmentedInputContainer.addEventListener('click', () => { if (!hiddenGuessInput.disabled) { hiddenGuessInput.focus(); } });
+    hiddenGuessInput.addEventListener('keydown', (event) => { 
+        if (event.key === 'Enter' && !submitButton.disabled) { 
+            handleGuess(); 
+        } 
+    });
+    segmentedInputContainer.addEventListener('click', () => { 
+        if (!hiddenGuessInput.disabled) { 
+            hiddenGuessInput.focus(); 
+        } 
+    });
 
     // Reset Button Listener
-    if (resetButton) { // Check if the button element exists
-        resetButton.addEventListener('click', () => {
-            console.log("Reset button clicked");
-            // Force a new game, ignoring saved state and clearing current state
-            initGame(true);
-        });
-    } else {
-        console.warn("Reset button element not found in HTML.");
-    }
+    resetButton.addEventListener('click', () => {
+        // Force a new game, ignoring saved state and clearing current state
+        initGame(true);
+    });
 
     // --- Start Game ---
     initGame(); // Attempt to load state or start fresh
