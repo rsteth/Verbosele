@@ -116,7 +116,7 @@ body {
 .tile.correct { background-color: #6aaa64; border-color: #6aaa64; color: white; }
 .tile.present { background-color: #c9b458; border-color: #c9b458; color: white; }
 .tile.absent { background-color: #787c7e; border-color: #787c7e; color: white; }
-.tile.glow-duplicate { outline: 2px solid #ffd000; } /* box-shadow: 0 0 6px #c9b458, 0 0 10px #c9bb7c; */ }
+.tile.glow-duplicate { outline: 2px solid #ffd000; }
 
 /* --- Input Area & Segmented Input --- */
 /* Width now determined by content */
@@ -133,17 +133,28 @@ body {
 }
 
 #segmented-input-container {
-    position: relative; display: inline-block; cursor: text;
+    position: relative; 
+    display: inline-block; 
+    cursor: text;
 }
 #visual-input-squares { /* Width determined by squares */
     display: flex; justify-content: flex-start;
     gap: 5px; z-index: 0;
 }
 .input-square { /* Fixed width/height */
-    width: 50px; height: 50px; border: 2px solid #888;
-    display: flex; justify-content: center; align-items: center;
-    font-size: 1.8em; font-weight: bold; text-transform: uppercase;
-    color: #111; background-color: #fff; box-sizing: border-box; flex-shrink: 0;
+    width: 50px; 
+    height: 50px; 
+    border: 2px solid #888;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    font-size: 1.8em; 
+    font-weight: bold; 
+    text-transform: uppercase;
+    color: #111; 
+    background-color: #fff; 
+    box-sizing: border-box; 
+    flex-shrink: 0;
 }
 .input-square.filled { border-color: #333; }
 
@@ -155,9 +166,17 @@ body {
 }
 
 #submit-guess { /* Button */
-    padding: 10px 15px; font-size: 1em; cursor: pointer; background-color: #4CAF50;
-    color: white; border: none; border-radius: 3px; height: 54px; box-sizing: border-box;
+    padding: 10px 15px; 
+    font-size: 1em; 
+    cursor: pointer; 
+    background-color: #4CAF50;
+    color: white; 
+    border: none; 
+    border-radius: 3px; 
+    height: 54px; 
+    box-sizing: border-box;
     flex-shrink: 0;
+    align-self: center; /* Align vertically with the input container */
 }
 #submit-guess:disabled { background-color: #cccccc; cursor: not-allowed; }
 
