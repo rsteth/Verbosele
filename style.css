@@ -25,6 +25,26 @@ body {
     text-align: center; /* Center text if it wraps */
 }
 
+#game-options {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.checkbox-label input {
+    margin-right: 5px;
+}
+
 #message-area {
     margin-top: 15px; /* Restore slightly larger margin */
     font-weight: bold; min-height: 20px; padding: 5px;
@@ -32,6 +52,47 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 90%; max-width: 500px; /* Keep centered */
     flex-shrink: 0;
+}
+
+#thesaurus-area {
+    margin-top: 15px;
+    font-weight: normal; 
+    min-height: 20px; 
+    padding: 5px;
+    text-align: left; 
+    background-color: #fff; 
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 90%; 
+    max-width: 500px;
+    flex-shrink: 0;
+}
+
+#thesaurus-area.hidden {
+    display: none;
+}
+
+#thesaurus-content {
+    font-size: 0.95em;
+    line-height: 1.4;
+    padding: 5px;
+}
+
+#thesaurus-content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #4a4a4a;
+    font-size: 1.1em;
+}
+
+#thesaurus-content .synonyms, 
+#thesaurus-content .antonyms {
+    margin-bottom: 8px;
+}
+
+#thesaurus-content .word-type {
+    font-style: italic;
+    color: #666;
 }
 
 /* --- Modified/New Styles for Status & Reset Controls --- */
@@ -207,4 +268,6 @@ body {
     #submit-guess { height: 39px; padding: 6px 10px; }
     #status-controls-container { gap: 10px; } /* Reduce gap */
     #reset-button { font-size: 0.85em; padding: 5px 10px;}
+    .checkbox-label { font-size: 0.8em; }
+    #thesaurus-content { font-size: 0.85em; }
 }

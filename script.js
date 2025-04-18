@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const END_LEVEL = 9;
     const GUESS_VALIDATION_API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     const TARGET_WORD_API_URL = "https://api.datamuse.com/words";
+    const THESAURUS_API_URL = "https://api.datamuse.com/words";
     const TARGET_WORDS_TO_FETCH = 300; // Fetch more to increase chance of finding constrained words
     const LOCAL_STORAGE_KEY = 'progressiveWordleState_v12';
 
@@ -18,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const visualInputSquaresContainer = document.getElementById('visual-input-squares');
     const hiddenGuessInput = document.getElementById('guess-input');
     const resetButton = document.getElementById('reset-button'); // Get reset button reference
+    const showThesaurusToggle = document.getElementById('show-thesaurus-toggle');
+    const thesaurusArea = document.getElementById('thesaurus-area');
+    const thesaurusContent = document.getElementById('thesaurus-content');
 
     // --- Game State Variables ---
     let currentLevel = START_LEVEL;
@@ -31,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let duplicateTargetLetters = new Set();
     let requiredStartingLetter = ''; // Stores the required starting letter after level 1
     let absentLetters = new Set(); // Tracks letters that have been guessed and are not in the target word
+    let thesaurusData = null; // Store thesaurus data for the current target word
+    let showThesaurus = false; // Track thesaurus toggle state
 
     // --- State Management Functions (localStorage) ---
     function saveGameState() {
@@ -40,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cumulativeGameHistory, gameOver, gameWon,
             duplicateTargetLetters: Array.from(duplicateTargetLetters),
             requiredStartingLetter, // Save the constraint
-            absentLetters: Array.from(absentLetters) // Save absent letters
+            absentLetters: Array.from(absentLetters), // Save absent letters
+            showThesaurus // Save thesaurus toggle state
         };
         try { localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state)); }
         catch (error) { console.error("Error saving game state:", error); }
@@ -64,6 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 requiredStartingLetter = savedState.requiredStartingLetter || ''; // Load the constraint
                 // Handle both old (usedLetters) and new (absentLetters) state formats
                 absentLetters = new Set(savedState.absentLetters || savedState.usedLetters || []);
+                // Load thesaurus toggle state if available
+                showThesaurus = savedState.showThesaurus || false;
+                showThesaurusToggle.checked = showThesaurus;
+                toggleThesaurusDisplay();
                 return true;
             } else { throw new Error("Invalid state structure"); }
         } catch (error) {
@@ -90,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
          duplicateTargetLetters = new Set();
          requiredStartingLetter = ''; 
          absentLetters = new Set();
+         thesaurusData = null;
+         // Don't reset showThesaurus as it's a user preference
          
          // Clear UI elements
          gridContainer.innerHTML = ''; 
@@ -251,6 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
         currentWordLength = currentLevel;
         targetWord = '';
         duplicateTargetLetters = new Set(); // Reset duplicates for new level
+        thesaurusData = null; // Reset thesaurus data for new word
+        updateThesaurusDisplay(); // Clear previous thesaurus display
 
         // Add separator if starting a level beyond the first
         if (currentLevel > START_LEVEL && gridContainer.children.length > 0) {
@@ -313,11 +328,19 @@ document.addEventListener('DOMContentLoaded', () => {
             let setupMsg = `Level ${currentLevel - START_LEVEL + 1}: Guess the ${currentWordLength}-letter word.`;
              if (requiredStartingLetter && currentLevel > START_LEVEL) {
                  setupMsg += ` (Starts with '${requiredStartingLetter.toUpperCase()}')`;
-             }
+            }
             setMessage(setupMsg);
             if (!gameOver) {
                 hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
             }
+            
+            // If thesaurus is enabled, fetch data for the new target word to help with guessing
+            if (showThesaurus) {
+                fetchThesaurusData(targetWord);
+            } else {
+                updateThesaurusDisplay(); // Clear display if toggled off
+            }
+            
             saveGameState();
 
         } catch (error) {
@@ -464,6 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await setupLevel();
             }, 1500);
         }
+        // No need to fetch thesaurus data here anymore as it's now fetched at the beginning of each level
     }
 
     function handleOutOfLives() {
@@ -500,6 +524,123 @@ document.addEventListener('DOMContentLoaded', () => {
         // Force a new game, ignoring saved state and clearing current state
         initGame(true);
     });
+    
+    // --- Thesaurus Functions ---
+    async function fetchThesaurusData(word) {
+        if (!word) return;
+        
+        try {
+            // Clear previous thesaurus content first
+            thesaurusContent.innerHTML = `<p>Loading word hints...</p>`;
+            
+            // Fetch synonyms (ml = means like)
+            const synParams = new URLSearchParams({
+                ml: word,
+                max: 10
+            });
+            
+            // Fetch antonyms (rel_ant = related antonyms)
+            const antParams = new URLSearchParams({
+                rel_ant: word,
+                max: 5
+            });
+            
+            // Make both requests
+            const [synResponse, antResponse] = await Promise.all([
+                fetch(`${THESAURUS_API_URL}?${synParams}`),
+                fetch(`${THESAURUS_API_URL}?${antParams}`)
+            ]);
+            
+            // Parse the responses
+            const synonyms = await synResponse.json();
+            const antonyms = await antResponse.json();
+            
+            // Store the data
+            thesaurusData = {
+                word: word,
+                synonyms: synonyms.filter(item => item.word !== word), // Filter out the original word
+                antonyms: antonyms
+            };
+            
+            // Update the display
+            updateThesaurusDisplay();
+            
+        } catch (error) {
+            console.error("Error fetching thesaurus data:", error);
+            thesaurusContent.innerHTML = `<p>Error fetching word hints. Please try again.</p>`;
+        }
+    }
+    
+    function updateThesaurusDisplay() {
+        // If no data or thesaurus is not shown, clear/hide content
+        if (!thesaurusData || !showThesaurus) {
+            if (!showThesaurus) {
+                thesaurusArea.classList.add('hidden');
+            } else {
+                thesaurusArea.classList.remove('hidden');
+                thesaurusContent.innerHTML = targetWord ? 
+                    `<p>Loading word hints...</p>` :
+                    `<p>No word selected.</p>`;
+            }
+            return;
+        }
+        
+        // Show the area and populate with data
+        thesaurusArea.classList.remove('hidden');
+        
+        // Format the content - don't show the actual word since this is a hint
+        let html = `<h3>Word Hints</h3>`;
+        
+        // Add synonyms if available
+        if (thesaurusData.synonyms && thesaurusData.synonyms.length > 0) {
+            html += `<div class="synonyms"><strong>Similar to:</strong> `;
+            html += thesaurusData.synonyms
+                .slice(0, 7) // Limit to 7 synonyms
+                .map(item => {
+                    let wordInfo = item.word;
+                    if (item.tags && item.tags.length > 0) {
+                        // Add part of speech info if available
+                        const pos = item.tags.find(tag => ['n', 'v', 'adj', 'adv'].includes(tag));
+                        if (pos) {
+                            const posMap = { 'n': 'noun', 'v': 'verb', 'adj': 'adj', 'adv': 'adv' };
+                            wordInfo += ` <span class="word-type">(${posMap[pos]})</span>`;
+                        }
+                    }
+                    return wordInfo;
+                })
+                .join(', ');
+            html += `</div>`;
+        } else {
+            html += `<div class="synonyms"><em>No similar words found.</em></div>`;
+        }
+        
+        // Add antonyms if available
+        if (thesaurusData.antonyms && thesaurusData.antonyms.length > 0) {
+            html += `<div class="antonyms"><strong>Opposite of:</strong> `;
+            html += thesaurusData.antonyms
+                .slice(0, 5) // Limit to 5 antonyms
+                .map(item => item.word)
+                .join(', ');
+            html += `</div>`;
+        }
+        
+        thesaurusContent.innerHTML = html;
+    }
+    
+    function toggleThesaurusDisplay() {
+        showThesaurus = showThesaurusToggle.checked;
+        updateThesaurusDisplay();
+        saveGameState(); // Save the preference
+        
+        // If the toggle is turned on and we already have a target word,
+        // fetch thesaurus data for it to help with guessing
+        if (showThesaurus && targetWord) {
+            fetchThesaurusData(targetWord);
+        }
+    }
+    
+    // Thesaurus Toggle Listener
+    showThesaurusToggle.addEventListener('change', toggleThesaurusDisplay);
 
     // --- Start Game ---
     initGame(); // Attempt to load state or start fresh

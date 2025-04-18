@@ -15,6 +15,12 @@
             <span id="lives-display">Lives: 18</span>
         </div>
         <button id="reset-button" title="Start a New Game">New Game</button>
+        <div id="game-options">
+            <label class="checkbox-label">
+                <input type="checkbox" id="show-thesaurus-toggle">
+                <span>Show Thesaurus</span>
+            </label>
+        </div>
     </div>
     <div id="game-area">
         <div id="grid-container">
@@ -32,6 +38,10 @@
 
     <div id="message-area">
         Welcome! Enter your first 5-letter guess.
+    </div>
+    
+    <div id="thesaurus-area" class="hidden">
+        <div id="thesaurus-content"></div>
     </div>
 
     <script src="script.js"></script>
