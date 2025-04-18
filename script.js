@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const THESAURUS_API_URL = "https://api.datamuse.com/words";
     const TARGET_WORDS_TO_FETCH = 300; // Fetch more to increase chance of finding constrained words
     const LOCAL_STORAGE_KEY = 'progressiveWordleState_v12';
+    
+    // Word grade level constants (based on frequency as a proxy)
+    const GRADE_LEVEL = {
+        EASY: 30, // Top 30% most frequent words (elementary school level)
+        MEDIUM: 15, // Top 15% most frequent words (middle school level)
+        HARD: 5 // Top 5% most frequent words (high school+ level)
+    };
+    const CURRENT_GRADE_LEVEL = GRADE_LEVEL.EASY; // Default to EASY, change to MEDIUM or HARD for more challenging words
 
     // --- DOM Elements ---
     const levelDisplay = document.getElementById('level-display');
@@ -296,21 +304,87 @@ document.addEventListener('DOMContentLoaded', () => {
         const queryParams = new URLSearchParams({
             sp: spellingPattern,
             max: TARGET_WORDS_TO_FETCH,
-            md: 'f'
+            md: 'f',
+            freq: 'f' // Add frequency parameter to prioritize common words
         });
         const apiUrl = `${TARGET_WORD_API_URL}?${queryParams}`;
 
         try {
-            // --- Fetch and Select Word --- (Same as before)
+            // --- Fetch Words from Datamuse ---
+            console.log(`Fetching words with grade level filter: ${CURRENT_GRADE_LEVEL}`);
             const response = await fetch(apiUrl);
             if (!response.ok) throw new Error(`API error fetching words: ${response.status} ${response.statusText}`);
             const data = await response.json();
             if (!Array.isArray(data)) throw new Error('Invalid word data received.');
-            const validWords = data.filter(item =>
-                item.word && item.word.length === currentWordLength && /^[a-z]+$/.test(item.word)
-            ).map(item => item.word);
-            if (validWords.length === 0) { if (patternConstraint) { throw new Error(`No valid ${currentWordLength}-letter words starting with '${requiredStartingLetter}' found from API.`); } else { throw new Error(`No valid ${currentWordLength}-letter words found from API.`); } }
-            targetWord = validWords[Math.floor(Math.random() * validWords.length)].toLowerCase();
+            console.log(`Total words returned from API: ${data.length}`);
+            
+            // Use 'f' (frequency) metadata to filter by grade level
+            const candidateWords = data.filter(item => {
+                // Check basic word requirements
+                if (!item.word || item.word.length !== currentWordLength || !/^[a-z]+$/.test(item.word)) {
+                    return false;
+                }
+                
+                // Filter by frequency score if available (proxy for grade level)
+                // Higher frequency score means more common words
+                if (item.tags && item.tags.length > 0) {
+                    // Extract frequency score from tags (format like 'f:12.34')
+                    const freqTag = item.tags.find(tag => tag.startsWith('f:'));
+                    if (freqTag) {
+                        const freqScore = parseFloat(freqTag.substring(2));
+                        
+                        // The higher the threshold, the more common words will be selected
+                        // CURRENT_GRADE_LEVEL controls the difficulty
+                        return freqScore >= CURRENT_GRADE_LEVEL;
+                    }
+                }
+                
+                // If no frequency data, include the word as fallback
+                return true;
+            }).map(item => item.word);
+            
+            console.log(`Words after grade level filtering: ${candidateWords.length}`);
+            
+            if (candidateWords.length === 0) {
+                if (patternConstraint) {
+                    throw new Error(`No valid ${currentWordLength}-letter words starting with '${requiredStartingLetter}' found from API.`);
+                } else {
+                    throw new Error(`No valid ${currentWordLength}-letter words found from API.`);
+                }
+            }
+            
+            // --- Validate words against Dictionary API ---
+            setMessage(`Validating words...`);
+            console.log(`Validating ${Math.min(candidateWords.length, 30)} words against Dictionary API`);
+            
+            // Shuffle candidate words and try up to 30 to avoid excessive API calls
+            const shuffledCandidates = [...candidateWords].sort(() => 0.5 - Math.random()).slice(0, 30);
+            let validatedWords = [];
+            
+            // Check each candidate word against Dictionary API
+            for (const word of shuffledCandidates) {
+                try {
+                    const isValid = await checkWordValidity(word);
+                    if (isValid) {
+                        validatedWords.push(word);
+                        console.log(`Word validated: ${word}`);
+                        // Once we have a few valid words, we can stop checking to reduce API load
+                        if (validatedWords.length >= 5) break;
+                    }
+                } catch (error) {
+                    // Continue trying other words if one fails
+                    console.log(`Word validation failed for ${word}: ${error.message}`);
+                }
+            }
+            
+            // If no words were validated, try to use candidate words as fallback
+            if (validatedWords.length === 0) {
+                console.warn(`No words validated by Dictionary API. Using unvalidated words as fallback.`);
+                validatedWords = candidateWords;
+            }
+            
+            // Select target word
+            targetWord = validatedWords[Math.floor(Math.random() * validatedWords.length)].toLowerCase();
             console.log(`Target word for level ${currentLevel}: ${targetWord}`);
 
             // --- Set the starting letter constraint --- (Same as before)
