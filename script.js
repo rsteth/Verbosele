@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         MEDIUM: 15, // Top 15% most frequent words (middle school level)
         HARD: 5 // Top 5% most frequent words (high school+ level)
     };
-    const CURRENT_GRADE_LEVEL = GRADE_LEVEL.MEDIUM; // Default to EASY, change to MEDIUM or HARD for more challenging words
+    const CURRENT_GRADE_LEVEL = GRADE_LEVEL.HARD; // Default to EASY, change to MEDIUM or HARD for more challenging words
 
     // --- DOM Elements ---
     const levelDisplay = document.getElementById('level-display');
