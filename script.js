@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let visualInputSquares = [];
     let duplicateTargetLetters = new Set();
     let requiredStartingLetter = ''; // Stores the required starting letter after level 1
+    let absentLetters = new Set(); // Tracks letters that have been guessed and are not in the target word
 
     // --- State Management Functions (localStorage) ---
     function saveGameState() {
@@ -38,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLevel, currentLives, targetWord, currentWordLength,
             cumulativeGameHistory, gameOver, gameWon,
             duplicateTargetLetters: Array.from(duplicateTargetLetters),
-            requiredStartingLetter // Save the constraint
+            requiredStartingLetter, // Save the constraint
+            absentLetters: Array.from(absentLetters) // Save absent letters
         };
         try { localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state)); }
         catch (error) { console.error("Error saving game state:", error); }
@@ -60,6 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 gameWon = savedState.gameWon;
                 duplicateTargetLetters = new Set(savedState.duplicateTargetLetters || []);
                 requiredStartingLetter = savedState.requiredStartingLetter || ''; // Load the constraint
+                // Handle both old (usedLetters) and new (absentLetters) state formats
+                absentLetters = new Set(savedState.absentLetters || savedState.usedLetters || []);
                 return true;
             } else { throw new Error("Invalid state structure"); }
         } catch (error) {
@@ -85,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
          gameWon = false; 
          duplicateTargetLetters = new Set();
          requiredStartingLetter = ''; 
+         absentLetters = new Set();
          
          // Clear UI elements
          gridContainer.innerHTML = ''; 
@@ -179,6 +184,13 @@ document.addEventListener('DOMContentLoaded', () => {
              const char = currentValue[index]; 
              square.textContent = char || '';
              square.classList.toggle('filled', !!char);
+             
+             // Apply special styling to letters that are not in the target word
+            if (char && absentLetters.has(char)) {
+                square.classList.add('used-letter');
+            } else {
+                square.classList.remove('used-letter');
+            }
          });
      }
 
@@ -413,6 +425,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update UI
         displayGuessRow(guess.toUpperCase(), feedback, currentWordLength, false);
+        
+        // Add only absent letters from this guess to the absentLetters set
+        for (let i = 0; i < feedback.length; i++) {
+            if (feedback[i] === 'absent') {
+                absentLetters.add(guess[i].toUpperCase());
+            }
+        }
+        
         hiddenGuessInput.value = ''; 
         updateVisualSquares();
 
