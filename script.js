@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let absentLetters = new Set(); // Tracks letters that have been guessed and are not in the target word
     let thesaurusData = null; // Store thesaurus data for the current target word
     let showThesaurus = false; // Track thesaurus toggle state
+    let guessedWords = new Set(); // Tracks words that have already been guessed
 
     // --- State Management Functions (localStorage) ---
     function saveGameState() {
@@ -55,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
             duplicateTargetLetters: Array.from(duplicateTargetLetters),
             requiredStartingLetter, // Save the constraint
             absentLetters: Array.from(absentLetters), // Save absent letters
-            showThesaurus // Save thesaurus toggle state
+            showThesaurus, // Save thesaurus toggle state
+            guessedWords: Array.from(guessedWords) // Save guessed words
         };
         try { localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state)); }
         catch (error) { console.error("Error saving game state:", error); }
@@ -83,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 showThesaurus = savedState.showThesaurus || false;
                 showThesaurusToggle.checked = showThesaurus;
                 toggleThesaurusDisplay();
+                // Load guessed words if available
+                guessedWords = new Set(savedState.guessedWords || []);
                 return true;
             } else { throw new Error("Invalid state structure"); }
         } catch (error) {
@@ -92,30 +96,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     function clearGameState() {
-         // Clear localStorage
-         if (typeof(Storage) !== "undefined") { 
-             localStorage.removeItem(LOCAL_STORAGE_KEY); 
-         }
-         
-         // Reset game variables
-         currentLevel = START_LEVEL; 
-         currentLives = MAX_LIVES; 
-         targetWord = '';
-         currentWordLength = START_LEVEL; 
-         cumulativeGameHistory = [];
-         gameOver = false; 
-         gameWon = false; 
-         duplicateTargetLetters = new Set();
-         requiredStartingLetter = ''; 
-         absentLetters = new Set();
-         thesaurusData = null;
-         // Don't reset showThesaurus as it's a user preference
-         
-         // Clear UI elements
-         gridContainer.innerHTML = ''; 
-         visualInputSquaresContainer.innerHTML = '';
-     }
+    function clearGameState() {
+        // Clear localStorage
+        if (typeof(Storage) !== "undefined") { 
+            localStorage.removeItem(LOCAL_STORAGE_KEY); 
+        }
+        
+        // Reset game variables
+        currentLevel = START_LEVEL; 
+        currentLives = MAX_LIVES; 
+        targetWord = '';
+        currentWordLength = START_LEVEL; 
+        cumulativeGameHistory = [];
+        gameOver = false; 
+        gameWon = false; 
+        duplicateTargetLetters = new Set();
+        requiredStartingLetter = ''; 
+        absentLetters = new Set();
+        thesaurusData = null;
+        guessedWords = new Set(); // Reset guessed words
+        // Don't reset showThesaurus as it's a user preference
+        
+        // Clear UI elements
+        gridContainer.innerHTML = ''; 
+        visualInputSquaresContainer.innerHTML = '';
+    }
 
 
     // --- UI Update Functions ---
@@ -125,9 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         cumulativeGameHistory.forEach(item => {
             // Add separator if word length increased (start of a new level's guesses)
             if (item.wordLength > lastLength && lastLength !== 0) {
-                 const separator = document.createElement('hr');
-                 separator.classList.add('level-separator');
-                 gridContainer.appendChild(separator);
+                const separator = document.createElement('hr');
+                separator.classList.add('level-separator');
+                gridContainer.appendChild(separator);
             }
             // Display the row using the stored length
             // Pass 'true' for immediate display (no animation on load/redraw)
@@ -175,102 +180,102 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     function updateStatusDisplay() {
-         const displayLength = currentWordLength || currentLevel;
-         levelDisplay.textContent = `Level: ${currentLevel - START_LEVEL + 1} (${displayLength} Letters)`;
-         livesDisplay.textContent = `Lives: ${currentLives}`;
-     }
-     
-     function setMessage(msg) { 
-         // If the message already contains HTML tags, use it as is
-         // Otherwise, wrap the message in bold tags for standard game messages
-         if (msg.includes('<') && msg.includes('>')) {
-             messageArea.innerHTML = msg;
-         } else {
-             messageArea.innerHTML = `<b>${msg}</b>`;
-         }
-     }
-     
-     function setupVisualInput() {
-         visualInputSquaresContainer.innerHTML = ''; 
-         visualInputSquares = [];
-         hiddenGuessInput.maxLength = currentWordLength; 
-         hiddenGuessInput.value = '';
-         
-         for (let i = 0; i < currentWordLength; i++) {
-             const square = document.createElement('div'); 
-             square.classList.add('input-square');
-             visualInputSquaresContainer.appendChild(square); 
-             visualInputSquares.push(square);
-         }
-     }
-     
-     function updateVisualSquares() {
-         const currentValue = hiddenGuessInput.value.toUpperCase();
-         visualInputSquares.forEach((square, index) => {
-             const char = currentValue[index]; 
-             square.textContent = char || '';
-             square.classList.toggle('filled', !!char);
-             
-             // Apply special styling to letters that are not in the target word
+    function updateStatusDisplay() {
+        const displayLength = currentWordLength || currentLevel;
+        levelDisplay.textContent = `Level: ${currentLevel - START_LEVEL + 1} (${displayLength} Letters)`;
+        livesDisplay.textContent = `Lives: ${currentLives}`;
+    }
+    
+    function setMessage(msg) { 
+        // If the message already contains HTML tags, use it as is
+        // Otherwise, wrap the message in bold tags for standard game messages
+        if (msg.includes('<') && msg.includes('>')) {
+            messageArea.innerHTML = msg;
+        } else {
+            messageArea.innerHTML = `<b>${msg}</b>`;
+        }
+    }
+    
+    function setupVisualInput() {
+        visualInputSquaresContainer.innerHTML = ''; 
+        visualInputSquares = [];
+        hiddenGuessInput.maxLength = currentWordLength; 
+        hiddenGuessInput.value = '';
+        
+        for (let i = 0; i < currentWordLength; i++) {
+            const square = document.createElement('div'); 
+            square.classList.add('input-square');
+            visualInputSquaresContainer.appendChild(square); 
+            visualInputSquares.push(square);
+        }
+    }
+    
+    function updateVisualSquares() {
+        const currentValue = hiddenGuessInput.value.toUpperCase();
+        visualInputSquares.forEach((square, index) => {
+            const char = currentValue[index]; 
+            square.textContent = char || '';
+            square.classList.toggle('filled', !!char);
+            
+            // Apply special styling to letters that are not in the target word
             if (char && absentLetters.has(char)) {
                 square.classList.add('used-letter');
             } else {
                 square.classList.remove('used-letter');
             }
-         });
-     }
+        });
+    }
 
     // --- Game Logic Functions ---
     async function initGame(forceNew = false) {
-         setMessage("Initializing game...");
-         hiddenGuessInput.disabled = true; submitButton.disabled = true;
+        setMessage("Initializing game...");
+        hiddenGuessInput.disabled = true; submitButton.disabled = true;
 
-         if (forceNew) {
-              console.log("Forcing new game state via reset.");
-              clearGameState(); // Explicitly clear state first when forcing new
-         }
+        if (forceNew) {
+            console.log("Forcing new game state via reset.");
+            clearGameState(); // Explicitly clear state first when forcing new
+        }
 
-         // Try loading state ONLY if not forcing new
-         if (!forceNew && loadGameState()) {
-             // Restore UI from loaded state
-             updateStatusDisplay();
-             redrawCumulativeGrid();
-             setupVisualInput();
-             updateVisualSquares();
-             if (gameOver) {
-                 endGame(gameWon, false); // Update UI for ended state
-                 setMessage(gameWon ? `Game previously won!` : `Game previously lost.`);
-             } else if (!targetWord){
-                 console.warn("Loaded state missing target word. Starting level setup.");
-                 await setupLevel(); // Need to fetch word
-             } else {
-                  // Add constraint info to resume message if applicable
-                  let resumeMsg = `Game resumed at Level ${currentLevel - START_LEVEL + 1}.`;
-                  if (requiredStartingLetter && currentLevel > START_LEVEL) {
-                      resumeMsg += ` (Words must start with '${requiredStartingLetter.toUpperCase()}')`;
-                  }
-                  setMessage(resumeMsg);
-                  if(!gameOver){ // Enable controls if not ended
-                      hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
-                  }
-             }
-         } else {
-             // Start fresh (clearGameState was already called if forceNew)
-             if (!forceNew) {
-                 // If load failed but wasn't forced, ensure state is truly clear
-                 // (clearGameState also resets variables, load only does if load fails AND forceNew is false)
-                 clearGameState(); // Call again ensure vars are reset
-             }
-             currentLevel = START_LEVEL; // Set explicitly for new game start
-             currentLives = MAX_LIVES; // Set explicitly for new game start
-             redrawCumulativeGrid(); // Draw empty grid initially
-             await setupLevel(); // Setup first level (fetches word, sets constraint)
-             updateStatusDisplay();
-             if (!gameOver) {
-                 hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
-             }
-         }
+        // Try loading state ONLY if not forcing new
+        if (!forceNew && loadGameState()) {
+            // Restore UI from loaded state
+            updateStatusDisplay();
+            redrawCumulativeGrid();
+            setupVisualInput();
+            updateVisualSquares();
+            if (gameOver) {
+                endGame(gameWon, false); // Update UI for ended state
+                setMessage(gameWon ? `Game previously won!` : `Game previously lost.`);
+            } else if (!targetWord){
+                console.warn("Loaded state missing target word. Starting level setup.");
+                await setupLevel(); // Need to fetch word
+            } else {
+                // Add constraint info to resume message if applicable
+                let resumeMsg = `Game resumed at Level ${currentLevel - START_LEVEL + 1}.`;
+                if (requiredStartingLetter && currentLevel > START_LEVEL) {
+                    resumeMsg += ` (Words must start with '${requiredStartingLetter.toUpperCase()}')`;
+                }
+                setMessage(resumeMsg);
+                if(!gameOver){ // Enable controls if not ended
+                    hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
+                }
+            }
+        } else {
+            // Start fresh (clearGameState was already called if forceNew)
+            if (!forceNew) {
+                // If load failed but wasn't forced, ensure state is truly clear
+                // (clearGameState also resets variables, load only does if load fails AND forceNew is false)
+                clearGameState(); // Call again ensure vars are reset
+            }
+            currentLevel = START_LEVEL; // Set explicitly for new game start
+            currentLives = MAX_LIVES; // Set explicitly for new game start
+            redrawCumulativeGrid(); // Draw empty grid initially
+            await setupLevel(); // Setup first level (fetches word, sets constraint)
+            updateStatusDisplay();
+            if (!gameOver) {
+                hiddenGuessInput.disabled = false; submitButton.disabled = false; hiddenGuessInput.focus();
+            }
+        }
     }
 
     // Modify setupLevel to handle the starting letter constraint
@@ -280,6 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
         duplicateTargetLetters = new Set(); // Reset duplicates for new level
         absentLetters = new Set(); // Reset absent letters for new level
         thesaurusData = null; // Reset thesaurus data for new word
+        guessedWords = new Set(); // Reset guessed words for new level
         updateThesaurusDisplay(); // Clear previous thesaurus display
 
         // Add separator if starting a level beyond the first
@@ -407,8 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // --- Update UI & Save --- (Same as before)
             let setupMsg = `Level ${currentLevel - START_LEVEL + 1}: Guess the ${currentWordLength}-letter word.`;
-             if (requiredStartingLetter && currentLevel > START_LEVEL) {
-                 setupMsg += ` (Starts with '${requiredStartingLetter.toUpperCase()}')`;
+            if (requiredStartingLetter && currentLevel > START_LEVEL) {
+                setupMsg += ` (Starts with '${requiredStartingLetter.toUpperCase()}')`;
             }
             setMessage(setupMsg);
             if (!gameOver) {
@@ -466,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setMessage("Error checking word (API or network issue). Please try again.");
             return null; // Indicate an error occurred
         } finally {
-             if (!gameOver) submitButton.disabled = false; // Re-enable if game not over
+            if (!gameOver) submitButton.disabled = false; // Re-enable if game not over
         }
     }
 
@@ -514,6 +520,12 @@ document.addEventListener('DOMContentLoaded', () => {
             setMessage(`Guess must be ${currentWordLength} letters long.`);
             return;
         }
+        
+        // Check if word has already been guessed
+        if (guessedWords.has(guess)) {
+            setMessage(`You already guessed "${guess.toUpperCase()}"`);
+            return;
+        }
 
         // Validate word exists in dictionary
         const isValidWord = await checkWordValidity(guess);
@@ -528,6 +540,9 @@ document.addEventListener('DOMContentLoaded', () => {
             hiddenGuessInput.select(); // Select the invalid word for easy correction
             return;
         }
+        
+        // Add to guessed words set
+        guessedWords.add(guess);
 
         // Process valid guess
         setMessage(""); // Clear validation messages
@@ -565,49 +580,77 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Add definition if available
             if (thesaurusInfo[0].defs && thesaurusInfo[0].defs.length > 0) {
-                // Parse the definition - typically format is "p def" where p is part of speech
                 const def = thesaurusInfo[0].defs[0];
-                const parts = def.split(' ');
                 
-                if (parts.length > 1) {
-                    // Get first part which contains POS information
-                    let posInfo = parts[0];
-                    let remainingDef = parts.slice(1).join(' ');
+                // Logic for extracting part of speech and remaining definition
+                let posInfo = '';
+                let remainingDef = '';
+                
+                // If definition starts with a letter/abbreviation (likely POS)
+                if (/^[a-z]+\s/i.test(def)) {
+                    const firstSpaceIdx = def.indexOf(' ');
                     
-                    // Parse the POS info in various formats
-                    let posMatch;
-                    let basePOS = '';
-                    let posDetail = '';
+                    // Check if there are parentheses following the POS that need special handling
+                    const openParenIdx = def.indexOf('(');
                     
-                    // Handle different formats:                    
-                    if (posInfo.match(/^[a-z]\s[A-Z]/)) {
-                        // Format: "n An" (single letter followed by space and capitalized word)
-                        basePOS = posInfo.substring(0, 1);  // Take first letter as POS code
-                        posDetail = posInfo.substring(2);    // Take everything after the space as detail
-                    } else if (posInfo.includes(' ') && !posInfo.includes('(')) {
-                        // Other space-separated formats
-                        let spacePos = posInfo.indexOf(' ');
-                        basePOS = posInfo.substring(0, spacePos);
-                        posDetail = posInfo.substring(spacePos + 1).trim();
-                    } else if (posInfo.includes('(')) {
-                        // Parenthetical format: "n (something)"
-                        let match = posInfo.match(/^([a-z]+)\s*\((.+)\)$/i);
-                        if (match) {
-                            basePOS = match[1];
-                            posDetail = match[2];
+                    if (openParenIdx > 0 && openParenIdx < firstSpaceIdx + 15) {
+                        // There are parentheses near the beginning we need to handle
+                        // Track nested parentheses to find the proper closing one
+                        let parenCount = 0;
+                        let closeParenIdx = -1;
+                        
+                        for (let i = openParenIdx; i < def.length; i++) {
+                            if (def[i] === '(') parenCount++;
+                            if (def[i] === ')') {
+                                parenCount--;
+                                if (parenCount === 0) {
+                                    closeParenIdx = i;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        if (closeParenIdx > 0) {
+                            // We found the matching closing parenthesis
+                            posInfo = def.substring(0, closeParenIdx + 1).trim();
+                            remainingDef = def.substring(closeParenIdx + 1).trim();
                         } else {
-                            // If we can't parse it, just use the whole thing as basePOS
-                            basePOS = posInfo;
+                            // No matching closing parenthesis, just split at first space
+                            posInfo = def.substring(0, firstSpaceIdx).trim();
+                            remainingDef = def.substring(firstSpaceIdx + 1).trim();
                         }
                     } else {
-                        // Single part of speech with no details
+                        // No nearby parentheses, just split at first space
+                        posInfo = def.substring(0, firstSpaceIdx).trim();
+                        remainingDef = def.substring(firstSpaceIdx + 1).trim();
+                    }
+                } else {
+                    // No clear POS marker, use whole definition
+                    remainingDef = def;
+                }
+                
+                // Parse the POS information
+                let basePOS = '';
+                let posDetail = '';
+                
+                if (posInfo) {
+                    // Get the base part of speech (text before any parentheses)
+                    const openParenIdx = posInfo.indexOf('(');
+                    if (openParenIdx > 0) {
+                        basePOS = posInfo.substring(0, openParenIdx).trim();
+                        
+                        // Extract all parenthetical content as details
+                        const closeParenIdx = posInfo.lastIndexOf(')');
+                        if (closeParenIdx > openParenIdx) {
+                            posDetail = posInfo.substring(openParenIdx + 1, closeParenIdx).trim();
+                        }
+                    } else {
+                        // No parentheses, whole posInfo is the base POS
                         basePOS = posInfo;
                     }
                     
-                    // Convert to full part of speech name
+                    // Convert abbreviated POS to full form
                     let fullPos = '';
-                    
-                    // Convert base abbreviations to full form
                     switch(basePOS) {
                         case 'n': fullPos = 'noun'; break;
                         case 'v': fullPos = 'verb'; break;
@@ -620,14 +663,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         default: fullPos = basePOS; break;
                     }
                     
-                    // Format with the detailed information if available
+                    // Format message with the POS and detail information
                     if (posDetail) {
-                        message += `<i style="color: #666;">(${fullPos}: ${posDetail})</i> ${remainingDef}`;
+                        // Sanitize HTML special characters
+                        const sanitizedDetail = posDetail.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                        message += `<i style="color: #666;">(${fullPos}: ${sanitizedDetail})</i> ${remainingDef}`;
                     } else {
                         message += `<i style="color: #666;">(${fullPos})</i> ${remainingDef}`;
                     }
                 } else {
-                    // If we can't parse it properly, just show the definition as is
+                    // If we couldn't parse the POS, just show the full definition
                     message += def;
                 }
             } else {
