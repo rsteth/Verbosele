@@ -278,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentWordLength = currentLevel;
         targetWord = '';
         duplicateTargetLetters = new Set(); // Reset duplicates for new level
+        absentLetters = new Set(); // Reset absent letters for new level
         thesaurusData = null; // Reset thesaurus data for new word
         updateThesaurusDisplay(); // Clear previous thesaurus display
 
