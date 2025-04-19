@@ -182,7 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
      }
      
      function setMessage(msg) { 
-         messageArea.textContent = msg; 
+         // If the message already contains HTML tags, use it as is
+         // Otherwise, wrap the message in bold tags for standard game messages
+         if (msg.includes('<') && msg.includes('>')) {
+             messageArea.innerHTML = msg;
+         } else {
+             messageArea.innerHTML = `<b>${msg}</b>`;
+         }
      }
      
      function setupVisualInput() {
@@ -425,6 +431,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // API Interaction for Thesaurus Information
+    async function getThesaurusInfo(word) {
+        try {
+            // Datamuse API to get related words and definitions
+            const response = await fetch(`https://api.datamuse.com/words?ml=${word}&md=d`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching thesaurus information:', error);
+            return null;
+        }
+    }
+
     // API Interaction for Guess Validation
     async function checkWordValidity(word) {
         setMessage("Checking word...");
@@ -510,6 +532,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setMessage(""); // Clear validation messages
         currentLives--;
         updateStatusDisplay();
+        
+        // Get thesaurus information for the word
+        const thesaurusInfo = await getThesaurusInfo(guess);
 
         // Calculate feedback and update history
         const feedback = calculateFeedback(guess, targetWord);
@@ -532,6 +557,88 @@ document.addEventListener('DOMContentLoaded', () => {
         
         hiddenGuessInput.value = ''; 
         updateVisualSquares();
+        
+        // Display thesaurus information if available
+        if (thesaurusInfo && thesaurusInfo.length > 0) {
+            let message = `<b>${guess.toUpperCase()}</b>: `;
+            
+            // Add definition if available
+            if (thesaurusInfo[0].defs && thesaurusInfo[0].defs.length > 0) {
+                // Parse the definition - typically format is "p def" where p is part of speech
+                const def = thesaurusInfo[0].defs[0];
+                const parts = def.split(' ');
+                
+                if (parts.length > 1) {
+                    // Get first part which contains POS information
+                    let posInfo = parts[0];
+                    let remainingDef = parts.slice(1).join(' ');
+                    
+                    // Parse the POS info in various formats
+                    let posMatch;
+                    let basePOS = '';
+                    let posDetail = '';
+                    
+                    // Handle different formats:                    
+                    if (posInfo.match(/^[a-z]\s[A-Z]/)) {
+                        // Format: "n An" (single letter followed by space and capitalized word)
+                        basePOS = posInfo.substring(0, 1);  // Take first letter as POS code
+                        posDetail = posInfo.substring(2);    // Take everything after the space as detail
+                    } else if (posInfo.includes(' ') && !posInfo.includes('(')) {
+                        // Other space-separated formats
+                        let spacePos = posInfo.indexOf(' ');
+                        basePOS = posInfo.substring(0, spacePos);
+                        posDetail = posInfo.substring(spacePos + 1).trim();
+                    } else if (posInfo.includes('(')) {
+                        // Parenthetical format: "n (something)"
+                        let match = posInfo.match(/^([a-z]+)\s*\((.+)\)$/i);
+                        if (match) {
+                            basePOS = match[1];
+                            posDetail = match[2];
+                        } else {
+                            // If we can't parse it, just use the whole thing as basePOS
+                            basePOS = posInfo;
+                        }
+                    } else {
+                        // Single part of speech with no details
+                        basePOS = posInfo;
+                    }
+                    
+                    // Convert to full part of speech name
+                    let fullPos = '';
+                    
+                    // Convert base abbreviations to full form
+                    switch(basePOS) {
+                        case 'n': fullPos = 'noun'; break;
+                        case 'v': fullPos = 'verb'; break;
+                        case 'adj': fullPos = 'adjective'; break;
+                        case 'adv': fullPos = 'adverb'; break;
+                        case 'prep': fullPos = 'preposition'; break;
+                        case 'conj': fullPos = 'conjunction'; break;
+                        case 'interj': fullPos = 'interjection'; break;
+                        case 'pron': fullPos = 'pronoun'; break;
+                        default: fullPos = basePOS; break;
+                    }
+                    
+                    // Format with the detailed information if available
+                    if (posDetail) {
+                        message += `<i>(${fullPos}: ${posDetail})</i> ${remainingDef}`;
+                    } else {
+                        message += `<i>(${fullPos})</i> ${remainingDef}`;
+                    }
+                } else {
+                    // If we can't parse it properly, just show the definition as is
+                    message += def;
+                }
+            } else {
+                // If no definition, add some related words
+                const relatedWords = thesaurusInfo.slice(0, 3).map(w => w.word).join(', ');
+                if (relatedWords) {
+                    message += `Related: ${relatedWords}`;
+                }
+            }
+            
+            setMessage(message);
+        }
 
         // Check game state
         const correctGuess = guess === targetWord;
