@@ -622,9 +622,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Format with the detailed information if available
                     if (posDetail) {
-                        message += `<i>(${fullPos}: ${posDetail})</i> ${remainingDef}`;
+                        message += `<i style="color: #666;">(${fullPos}: ${posDetail})</i> ${remainingDef}`;
                     } else {
-                        message += `<i>(${fullPos})</i> ${remainingDef}`;
+                        message += `<i style="color: #666;">(${fullPos})</i> ${remainingDef}`;
                     }
                 } else {
                     // If we can't parse it properly, just show the definition as is
