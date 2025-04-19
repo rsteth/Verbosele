@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Add only absent letters from this guess to the absentLetters set
         for (let i = 0; i < feedback.length; i++) {
-            if (feedback[i] === 'absent') {
+            if (feedback[i] === 'absent' && !targetWord.includes(guess[i])) {
                 absentLetters.add(guess[i].toUpperCase());
             }
         }
