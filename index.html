@@ -3,13 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verbosele</title>
+    <title>Verbosele — Wordle with Levels (5 to 9 Letters)</title>
+    <meta name="description" content="A free word game: Wordle with levels. Solve words from 5 to 9 letters across five rounds on one shared pool of 18 lives, with optional thesaurus hints.">
+    <meta name="author" content="Robin Stethem">
+    <link rel="canonical" href="https://stethem.com/verbosele/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Robin Stethem">
+    <meta property="og:title" content="Verbosele — Wordle with levels">
+    <meta property="og:description" content="Solve words from 5 to 9 letters across five rounds on one shared pool of 18 lives, with optional thesaurus hints.">
+    <meta property="og:url" content="https://stethem.com/verbosele/">
+    <meta property="og:image" content="https://stethem.com/images/og/verbosele.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Verbosele level one with the word THREE ready to guess">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@robinstethem">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["WebApplication", "VideoGame"],
+          "@id": "https://stethem.com/verbosele/#app",
+          "name": "Verbosele",
+          "url": "https://stethem.com/verbosele/",
+          "applicationCategory": "GameApplication",
+          "genre": "Word game",
+          "operatingSystem": "Any (web browser)",
+          "isAccessibleForFree": true,
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "author": { "@type": "Person", "@id": "https://stethem.com/#person", "name": "Robin Stethem", "url": "https://stethem.com/" },
+          "description": "Wordle with levels: solve words from 5 to 9 letters across five rounds on one shared pool of 18 lives, with optional thesaurus hints."
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "name": "Verbosele source",
+          "codeRepository": "https://github.com/rsteth/Verbosele",
+          "programmingLanguage": "JavaScript",
+          "author": { "@id": "https://stethem.com/#person" },
+          "targetProduct": { "@id": "https://stethem.com/verbosele/#app" }
+        }
+      ]
+    }
+    </script>
     <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
     <script src="favicon.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Verbosele</h1>
+    <noscript>
+        <p>Verbosele is Wordle with levels: solve words from 5 to 9 letters across five rounds on one shared pool of 18 lives, with optional thesaurus hints. It needs JavaScript to play. Made by <a href="https://stethem.com/" rel="author">Robin Stethem</a>.</p>
+    </noscript>
 
     <div id="status-controls-container">
         <div id="game-status">
