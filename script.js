@@ -65,9 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadGameState() {
         if (typeof(Storage) === "undefined") return false;
-        const savedStateString = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (!savedStateString) return false;
         try {
+            const savedStateString = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (!savedStateString) return false;
             const savedState = JSON.parse(savedStateString);
             if (savedState && typeof savedState.currentLevel === 'number') {
                 currentLevel = savedState.currentLevel;
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { throw new Error("Invalid state structure"); }
         } catch (error) {
             console.error("Error loading game state:", error);
-            localStorage.removeItem(LOCAL_STORAGE_KEY);
+            try { localStorage.removeItem(LOCAL_STORAGE_KEY); } catch { /* Storage may be unavailable. */ }
             return false;
         }
     }
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearGameState() {
         // Clear localStorage
         if (typeof(Storage) !== "undefined") { 
-            localStorage.removeItem(LOCAL_STORAGE_KEY); 
+            try { localStorage.removeItem(LOCAL_STORAGE_KEY); } catch { /* Storage may be unavailable. */ }
         }
         
         // Reset game variables
@@ -144,30 +144,42 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayGuessRow(guess, feedback, wordLength, immediate = false) {
         const row = document.createElement('div');
         row.classList.add('grid-row');
+        row.style.setProperty('--letter-count', wordLength);
 
         for (let i = 0; i < wordLength; i++) {
             const tile = document.createElement('div');
             tile.classList.add('tile');
+            tile.setAttribute('role', 'img');
             const letter = guess[i] ? guess[i].toLowerCase() : '';
             tile.textContent = guess[i] || '';
 
-            // Add glow for duplicate letters in current level
-            if (letter && wordLength === currentWordLength && duplicateTargetLetters.has(letter)) {
-                tile.classList.add('glow-duplicate');
-            }
-
-            // Apply feedback color class
-            if (immediate) {
-                if (feedback[i]) {
-                    tile.classList.add(feedback[i]);
+            tile.setAttribute('aria-label', guess[i] || 'Empty');
+            const revealFeedback = () => {
+                const state = feedback[i];
+                const symbols = { correct: '✓', present: '◆', absent: '×' };
+                const descriptions = { correct: 'correct position', present: 'present elsewhere', absent: 'absent' };
+                if (symbols[state]) {
+                    tile.classList.add(state);
+                    const marker = document.createElement('span');
+                    marker.className = 'feedback-symbol';
+                    marker.textContent = symbols[state];
+                    marker.setAttribute('aria-hidden', 'true');
+                    tile.appendChild(marker);
+                    tile.setAttribute('aria-label', `${guess[i]}: ${descriptions[state]}`);
                 }
+                // Preserve the existing duplicate hint, only once this tile reveals.
+                if (letter && wordLength === currentWordLength && duplicateTargetLetters.has(letter)) {
+                    tile.classList.add('glow-duplicate');
+                    tile.setAttribute('aria-label', `${tile.getAttribute('aria-label')}; repeated letter`);
+                }
+            };
+            if (immediate || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                revealFeedback();
             } else {
-                // Stagger reveal animation for new guesses
                 setTimeout(() => {
-                    if (feedback[i]) {
-                        tile.classList.add(feedback[i]);
-                    }
                     tile.classList.add('reveal');
+                    // Attach every feedback cue together after the full flip, never on its hidden face.
+                    setTimeout(revealFeedback, 500);
                 }, i * 100);
             }
             row.appendChild(tile);
@@ -176,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Scroll for new guesses only
         if (!immediate) {
-            segmentedInputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            segmentedInputContainer.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'nearest' });
         }
     }
 
@@ -199,12 +211,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupVisualInput() {
         visualInputSquaresContainer.innerHTML = ''; 
         visualInputSquares = [];
+        visualInputSquaresContainer.style.setProperty('--letter-count', currentWordLength);
         hiddenGuessInput.maxLength = currentWordLength; 
         hiddenGuessInput.value = '';
         
         for (let i = 0; i < currentWordLength; i++) {
             const square = document.createElement('div'); 
             square.classList.add('input-square');
+            square.setAttribute('aria-hidden', 'true');
             visualInputSquaresContainer.appendChild(square); 
             visualInputSquares.push(square);
         }
@@ -293,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const separator = document.createElement('hr');
             separator.classList.add('level-separator');
             gridContainer.appendChild(separator);
-            separator.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            separator.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'nearest' });
         }
 
         // DON'T clear gridContainer here - cumulative history requires it
@@ -667,9 +681,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (posDetail) {
                         // Sanitize HTML special characters
                         const sanitizedDetail = posDetail.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                        message += `<i style="color: #666;">(${fullPos}: ${sanitizedDetail})</i> ${remainingDef}`;
+                        message += `<i class="word-type">(${fullPos}: ${sanitizedDetail})</i> ${remainingDef}`;
                     } else {
-                        message += `<i style="color: #666;">(${fullPos})</i> ${remainingDef}`;
+                        message += `<i class="word-type">(${fullPos})</i> ${remainingDef}`;
                     }
                 } else {
                     // If we couldn't parse the POS, just show the full definition
