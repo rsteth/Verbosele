@@ -5,147 +5,157 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 12.241137536512081
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 19.093223487822993
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(231, 231, 218)",
-        "ratio": 10.8851333108192
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(224, 224, 224)",
+        "ratio": 15.908084190807749
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 5.767824662668045
+        "foreground": "rgb(85, 85, 85)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 6.778256003634927
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 13.344325424732025
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 21
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "ratio": 6.13240026768346
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(217, 83, 79)",
+        "ratio": 3.9618545287704063,
+        "originalPalettePreserved": true
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(63, 98, 72)",
-        "ratio": 6.764476935295207
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(76, 175, 80)",
+        "ratio": 2.7795697203442264,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(87, 89, 80)",
-        "ratio": 6.9982843291722014
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(120, 124, 126)",
+        "ratio": 4.214374203290859,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(63, 98, 72)",
-        "ratio": 6.764476935295207
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(106, 170, 100)",
+        "ratio": 2.7826568384565262,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "ratio": 6.13240026768346
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(201, 180, 88)",
+        "ratio": 2.0683703079791576,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(87, 89, 80)",
-        "ratio": 6.9982843291722014
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(120, 124, 126)",
+        "ratio": 4.214374203290859,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 5.767824662668045
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 19.093223487822993
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 6.287628830397762
+        "foreground": "rgb(102, 102, 102)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 5.74183648145415
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 4.029924102085221
+        "ratio": 1.325845116696201,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".tile.correct",
-        "ratio": 6.205251287865322
+        "ratio": 2.5299947098366387,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".tile.present",
-        "ratio": 5.625428990702557
+        "ratio": 1.8805645974201586,
+        "originalPalettePreserved": true
       },
       {
         "selector": ".tile.absent",
-        "ratio": 6.419729605382765
+        "ratio": 3.831713739273731,
+        "originalPalettePreserved": true
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 4.029924102085221
+        "ratio": 4.1297960136052785
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "P",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LEGEND",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "SMALL",
-        "ratio": 6.287628830397762
+        "ratio": 7.455177810447525
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "SMALL",
-        "ratio": 6.287628830397762
+        "ratio": 7.455177810447525
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "P",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "BUTTON",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "BUTTON",
-        "ratio": 13.344325424732025
+        "ratio": 21
       }
     ]
   },
@@ -155,147 +165,147 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 12.241137536512081
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 19.093223487822993
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(231, 231, 218)",
-        "ratio": 10.8851333108192
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(224, 224, 224)",
+        "ratio": 15.908084190807749
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 5.767824662668045
+        "foreground": "rgb(85, 85, 85)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 6.778256003634927
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 13.344325424732025
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 21
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(146, 80, 29)",
-        "ratio": 6.094693536353696
+        "ratio": 6.199436874423564
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(33, 94, 135)",
-        "ratio": 6.846126248291576
+        "ratio": 6.963783700929107
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(87, 89, 80)",
-        "ratio": 6.9982843291722014
+        "ratio": 7.118556768963833
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(33, 94, 135)",
-        "ratio": 6.846126248291576
+        "ratio": 6.963783700929107
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(146, 80, 29)",
-        "ratio": 6.094693536353696
+        "ratio": 6.199436874423564
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(87, 89, 80)",
-        "ratio": 6.9982843291722014
+        "ratio": 7.118556768963833
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 5.767824662668045
+        "foreground": "rgb(85, 85, 85)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 6.778256003634927
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 6.287628830397762
+        "foreground": "rgb(102, 102, 102)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 5.74183648145415
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 4.029924102085221
+        "ratio": 4.062861751968923
       },
       {
         "selector": ".tile.correct",
-        "ratio": 6.280150575640324
+        "ratio": 6.331479929652311
       },
       {
         "selector": ".tile.present",
-        "ratio": 5.590839510187904
+        "ratio": 5.636534940096189
       },
       {
         "selector": ".tile.absent",
-        "ratio": 6.419729605382765
+        "ratio": 6.472199776218171
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 4.029924102085221
+        "ratio": 4.1297960136052785
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "P",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LEGEND",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "SMALL",
-        "ratio": 6.287628830397762
+        "ratio": 7.455177810447525
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "SMALL",
-        "ratio": 6.287628830397762
+        "ratio": 7.455177810447525
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "P",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "BUTTON",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "BUTTON",
-        "ratio": 13.344325424732025
+        "ratio": 21
       }
     ]
   },
@@ -305,147 +315,147 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 12.241137536512081
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 19.093223487822993
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(231, 231, 218)",
-        "ratio": 10.8851333108192
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(224, 224, 224)",
+        "ratio": 15.908084190807749
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 5.767824662668045
+        "foreground": "rgb(85, 85, 85)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 6.778256003634927
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 13.344325424732025
+        "foreground": "rgb(0, 0, 0)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 21
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(35, 100, 94)",
-        "ratio": 6.755705291229364
+        "ratio": 6.871808770263846
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(124, 53, 105)",
-        "ratio": 8.032390413120137
+        "ratio": 8.170434989033952
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(87, 89, 80)",
-        "ratio": 6.9982843291722014
+        "ratio": 7.118556768963833
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(124, 53, 105)",
-        "ratio": 8.032390413120137
+        "ratio": 8.170434989033952
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(35, 100, 94)",
-        "ratio": 6.755705291229364
+        "ratio": 6.871808770263846
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(87, 89, 80)",
-        "ratio": 6.9982843291722014
+        "ratio": 7.118556768963833
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(246, 243, 235)",
-        "ratio": 5.767824662668045
+        "foreground": "rgb(85, 85, 85)",
+        "background": "rgb(244, 244, 244)",
+        "ratio": 6.778256003634927
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(94, 96, 86)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 6.287628830397762
+        "foreground": "rgb(102, 102, 102)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 5.74183648145415
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 4.029924102085221
+        "ratio": 4.062861751968923
       },
       {
         "selector": ".tile.correct",
-        "ratio": 7.3683451702796905
+        "ratio": 7.428568630397801
       },
       {
         "selector": ".tile.present",
-        "ratio": 6.197204803834567
+        "ratio": 6.247856219820461
       },
       {
         "selector": ".tile.absent",
-        "ratio": 6.419729605382765
+        "ratio": 6.472199776218171
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 4.029924102085221
+        "ratio": 4.1297960136052785
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "P",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LEGEND",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "SMALL",
-        "ratio": 6.287628830397762
+        "ratio": 7.455177810447525
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "SMALL",
-        "ratio": 6.287628830397762
+        "ratio": 7.455177810447525
       },
       {
         "selector": "LABEL",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "P",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "BUTTON",
-        "ratio": 13.344325424732025
+        "ratio": 21
       },
       {
         "selector": "BUTTON",
-        "ratio": 13.344325424732025
+        "ratio": 21
       }
     ]
   },
@@ -455,147 +465,147 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(23, 24, 19)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(23, 24, 19)",
-        "background": "rgb(228, 228, 216)",
-        "ratio": 13.929356572548512
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(228, 228, 228)",
+        "ratio": 14.851477423242844
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 13.344325424732025
+        "foreground": "rgb(51, 51, 51)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 12.63465434445799
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(23, 24, 19)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "ratio": 17.54814293185593
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 13.344325424732025
+        "foreground": "rgb(51, 51, 51)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 12.63465434445799
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(48, 46, 40)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 13.344325424732025
+        "foreground": "rgb(51, 51, 51)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 12.63465434445799
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.correct",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.present",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.absent",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "P",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LEGEND",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LABEL",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LABEL",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "SMALL",
-        "ratio": 13.344325424732025
+        "ratio": 12.63465434445799
       },
       {
         "selector": "LABEL",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "SMALL",
-        "ratio": 13.344325424732025
+        "ratio": 12.63465434445799
       },
       {
         "selector": "LABEL",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "P",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "BUTTON",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       },
       {
         "selector": "BUTTON",
-        "ratio": 17.54814293185593
+        "ratio": 18.883060964594996
       }
     ]
   },
@@ -605,147 +615,147 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 14.329780406541092
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 14.628814855931541
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(56, 63, 53)",
-        "ratio": 9.809805850568688
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(56, 56, 56)",
+        "ratio": 10.289289285601042
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 9.203742781711794
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 9.964277950609677
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(43, 48, 42)",
-        "ratio": 12.14833385992095
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(43, 43, 43)",
+        "ratio": 12.42444086707591
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(229, 193, 139)",
-        "ratio": 9.331322835152577
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(185, 54, 50)",
+        "ratio": 5.774653048804883
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(169, 199, 172)",
-        "ratio": 8.665228004150224
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(40, 107, 45)",
+        "ratio": 6.499146368890591
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(187, 192, 181)",
-        "ratio": 8.565326428051831
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(85, 90, 94)",
+        "ratio": 6.975921138965595
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(169, 199, 172)",
-        "ratio": 8.665228004150224
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(57, 107, 53)",
+        "ratio": 6.3092283772876225
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(229, 193, 139)",
-        "ratio": 9.331322835152577
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(122, 101, 28)",
+        "ratio": 5.666861011741188
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(187, 192, 181)",
-        "ratio": 8.565326428051831
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(85, 90, 94)",
+        "ratio": 6.975921138965595
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 9.203742781711794
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 14.628814855931541
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(43, 48, 42)",
-        "ratio": 7.80264155492813
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(43, 43, 43)",
+        "ratio": 8.462789597084885
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 6.711357813853914
+        "ratio": 5.998093200787103
       },
       {
         "selector": ".tile.correct",
-        "ratio": 8.665228004150224
+        "ratio": 5.998093200787103
       },
       {
         "selector": ".tile.present",
-        "ratio": 9.331322835152577
+        "ratio": 5.998093200787103
       },
       {
         "selector": ".tile.absent",
-        "ratio": 8.565326428051831
+        "ratio": 5.998093200787103
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 6.711357813853914
+        "ratio": 5.998093200787103
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "P",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LEGEND",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "SMALL",
-        "ratio": 7.80264155492813
+        "ratio": 8.462789597084885
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "SMALL",
-        "ratio": 7.80264155492813
+        "ratio": 8.462789597084885
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "P",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "BUTTON",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "BUTTON",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       }
     ]
   },
@@ -755,147 +765,147 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 14.329780406541092
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 14.628814855931541
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(56, 63, 53)",
-        "ratio": 9.809805850568688
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(56, 56, 56)",
+        "ratio": 10.289289285601042
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 9.203742781711794
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 9.964277950609677
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(43, 48, 42)",
-        "ratio": 12.14833385992095
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(43, 43, 43)",
+        "ratio": 12.42444086707591
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(239, 189, 138)",
-        "ratio": 9.319045493890421
+        "ratio": 9.777378169423816
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(157, 204, 237)",
-        "ratio": 9.301999956088197
+        "ratio": 9.759494291798923
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(187, 192, 181)",
-        "ratio": 8.565326428051831
+        "ratio": 8.986589419112411
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(157, 204, 237)",
-        "ratio": 9.301999956088197
+        "ratio": 9.759494291798923
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(239, 189, 138)",
-        "ratio": 9.319045493890421
+        "ratio": 9.777378169423816
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(187, 192, 181)",
-        "ratio": 8.565326428051831
+        "ratio": 8.986589419112411
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 9.203742781711794
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 9.964277950609677
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(43, 48, 42)",
-        "ratio": 7.80264155492813
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(43, 43, 43)",
+        "ratio": 8.462789597084885
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 6.711357813853914
+        "ratio": 7.041438248089616
       },
       {
         "selector": ".tile.correct",
-        "ratio": 9.301999956088197
+        "ratio": 9.759494291798923
       },
       {
         "selector": ".tile.present",
-        "ratio": 9.319045493890421
+        "ratio": 9.777378169423816
       },
       {
         "selector": ".tile.absent",
-        "ratio": 8.565326428051831
+        "ratio": 8.986589419112411
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 6.711357813853914
+        "ratio": 5.998093200787103
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "P",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LEGEND",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "SMALL",
-        "ratio": 7.80264155492813
+        "ratio": 8.462789597084885
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "SMALL",
-        "ratio": 7.80264155492813
+        "ratio": 8.462789597084885
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "P",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "BUTTON",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "BUTTON",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       }
     ]
   },
@@ -905,147 +915,147 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 14.329780406541092
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 14.628814855931541
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(56, 63, 53)",
-        "ratio": 9.809805850568688
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(56, 56, 56)",
+        "ratio": 10.289289285601042
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 9.203742781711794
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 9.964277950609677
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(246, 243, 235)",
-        "background": "rgb(43, 48, 42)",
-        "ratio": 12.14833385992095
+        "foreground": "rgb(240, 240, 240)",
+        "background": "rgb(43, 43, 43)",
+        "ratio": 12.42444086707591
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(153, 215, 204)",
-        "ratio": 9.796026428744518
+        "ratio": 10.277818153618687
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(237, 181, 219)",
-        "ratio": 9.25637249222602
+        "ratio": 9.711622761459823
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(187, 192, 181)",
-        "ratio": 8.565326428051831
+        "ratio": 8.986589419112411
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(237, 181, 219)",
-        "ratio": 9.25637249222602
+        "ratio": 9.711622761459823
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(153, 215, 204)",
-        "ratio": 9.796026428744518
+        "ratio": 10.277818153618687
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(187, 192, 181)",
-        "ratio": 8.565326428051831
+        "ratio": 8.986589419112411
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(32, 35, 31)",
-        "ratio": 9.203742781711794
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(30, 30, 30)",
+        "ratio": 9.964277950609677
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(194, 199, 185)",
-        "background": "rgb(43, 48, 42)",
-        "ratio": 7.80264155492813
+        "foreground": "rgb(200, 200, 200)",
+        "background": "rgb(43, 43, 43)",
+        "ratio": 8.462789597084885
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 6.711357813853914
+        "ratio": 7.041438248089616
       },
       {
         "selector": ".tile.correct",
-        "ratio": 9.25637249222602
+        "ratio": 9.711622761459823
       },
       {
         "selector": ".tile.present",
-        "ratio": 9.796026428744518
+        "ratio": 10.277818153618687
       },
       {
         "selector": ".tile.absent",
-        "ratio": 8.565326428051831
+        "ratio": 8.986589419112411
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 6.711357813853914
+        "ratio": 5.998093200787103
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "P",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LEGEND",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "SMALL",
-        "ratio": 7.80264155492813
+        "ratio": 8.462789597084885
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "SMALL",
-        "ratio": 7.80264155492813
+        "ratio": 8.462789597084885
       },
       {
         "selector": "LABEL",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "P",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "BUTTON",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       },
       {
         "selector": "BUTTON",
-        "ratio": 12.14833385992095
+        "ratio": 12.42444086707591
       }
     ]
   },
@@ -1055,147 +1065,147 @@
     "text": [
       {
         "selector": "body",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(17, 19, 15)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#game-status",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(43, 48, 42)",
-        "ratio": 13.24315815515844
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(51, 51, 51)",
+        "ratio": 12.63465434445799
       },
       {
         "selector": ".checkbox-label",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(17, 19, 15)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#message-area",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(17, 19, 15)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#reset-button",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#submit-guess",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".input-square",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.correct",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.present",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.absent",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".feedback-legend",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(17, 19, 15)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#message-area .word-type",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(17, 19, 15)",
-        "ratio": 18.369553436157556
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "ratio": 18.883060964594996
       }
     ],
     "graphics": [
       {
         "selector": ".input-square:not(.used-letter)",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.correct",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.present",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": ".tile.absent",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "#theme-toggle",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       }
     ],
     "dialog": [
       {
         "selector": "H2",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "P",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LEGEND",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LABEL",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LABEL",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "SMALL",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LABEL",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "SMALL",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "LABEL",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "P",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "BUTTON",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       },
       {
         "selector": "BUTTON",
-        "ratio": 18.369553436157556
+        "ratio": 18.883060964594996
       }
     ]
   }

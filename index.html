@@ -54,16 +54,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="app-header">
-        <h1>Verbosele</h1>
+    <h1>Verbosele</h1>
         <div class="appearance-controls" aria-label="Appearance">
             <button id="theme-toggle" class="icon-button" type="button" aria-label="Dark mode" aria-pressed="false" title="Dark mode"><span data-theme-icon aria-hidden="true">☀</span></button>
             <button id="accessibility-button" class="icon-button" type="button" aria-label="Accessibility" aria-haspopup="dialog" title="Accessibility"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8l8 2 8-2M12 10v5m0 0l-5 7m5-7l5 7"/></svg></button>
         </div>
-    </header>
     <dialog id="accessibility-dialog" aria-labelledby="accessibility-title" aria-describedby="accessibility-description">
         <h2 id="accessibility-title">Accessibility</h2>
-        <p id="accessibility-description">Choose colors that are easier for you to distinguish. Symbols also identify revealed feedback. These options change presentation, not the game.</p>
+        <p id="accessibility-description">Choose colors that are easier for you to distinguish. Optional palettes also show symbols for revealed feedback. Standard preserves the original appearance. These options change presentation, not the game.</p>
         <fieldset><legend>Color palette</legend>
             <label><input type="radio" name="palette" value="standard"> Standard</label>
             <label><input type="radio" name="palette" value="red-green"> Red–green friendly <small>(protan/deutan)</small></label>

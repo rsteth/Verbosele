@@ -1,0 +1,66 @@
+{
+  "baseline": "a358aaa",
+  "reason": "Original light Standard colors preserved by explicit user request",
+  "text": [
+    {
+      "selector": ".tile.correct",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(106, 170, 100)",
+      "ratio": 2.7826568384565262,
+      "required": 3,
+      "passes": false
+    },
+    {
+      "selector": ".tile.present",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(201, 180, 88)",
+      "ratio": 2.0683703079791576,
+      "required": 3,
+      "passes": false
+    },
+    {
+      "selector": ".tile.absent",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(120, 124, 126)",
+      "ratio": 4.214374203290859,
+      "required": 3,
+      "passes": true
+    },
+    {
+      "selector": "#reset-button",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(217, 83, 79)",
+      "ratio": 3.9618545287704063,
+      "required": 4.5,
+      "passes": false
+    },
+    {
+      "selector": "#submit-guess",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(76, 175, 80)",
+      "ratio": 2.7795697203442264,
+      "required": 4.5,
+      "passes": false
+    }
+  ],
+  "boundaries": [
+    {
+      "selector": ".input-square",
+      "adjacent": "white surface",
+      "ratio": 1.4582528439148779,
+      "required": 3
+    },
+    {
+      "selector": ".input-square",
+      "adjacent": "page",
+      "ratio": 1.325845116696201,
+      "required": 3
+    },
+    {
+      "selector": ".glow-duplicate",
+      "adjacent": "page",
+      "ratio": 1.337589689414651,
+      "required": 3
+    }
+  ]
+}

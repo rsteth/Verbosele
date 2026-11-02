@@ -17,6 +17,15 @@
         const toggle = document.getElementById('theme-toggle');
         const open = document.getElementById('accessibility-button');
         const dialog = document.getElementById('accessibility-dialog');
+        // Enlarged text can fill the space beside the original heading. Float the
+        // toolbar at the viewport edge instead of changing any game geometry.
+        const heading = document.querySelector('h1');
+        const placeToolbar = () => {
+            root.dataset.toolbarPlacement = heading.getBoundingClientRect().width > 180 ? 'bottom' : 'heading';
+        };
+        new ResizeObserver(placeToolbar).observe(heading);
+        window.addEventListener('resize', placeToolbar);
+        placeToolbar();
         const sync = () => {
             const dark = root.dataset.theme === 'dark';
             toggle.setAttribute('aria-pressed', String(dark));

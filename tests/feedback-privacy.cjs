@@ -11,7 +11,7 @@ const executablePath = process.env.CHROMIUM_PATH || '/Users/robinstethem/Library
    await context.route('https://api.datamuse.com/**',r=>r.fulfill({json:[]}));
    const page=await context.newPage();
    await page.addInitScript(()=>{if(!localStorage.getItem('progressiveWordleState_v12'))localStorage.setItem('progressiveWordleState_v12',JSON.stringify({currentLevel:5,currentWordLength:5,currentLives:18,targetWord:'crane',cumulativeGameHistory:[],gameOver:false,gameWon:false,duplicateTargetLetters:[],requiredStartingLetter:'c',absentLetters:['Z'],showThesaurus:false,guessedWords:[]}));});
-   await page.goto(process.env.BASE_URL||'http://127.0.0.1:4175');await page.locator('#guess-input:enabled').waitFor();
+   await page.goto(process.env.BASE_URL||'http://127.0.0.1:4175');await page.getByRole('button',{name:'Accessibility',exact:true}).click();await page.locator('input[value="red-green"]').check();await page.getByRole('button',{name:'Close',exact:true}).click();await page.locator('#guess-input:enabled').waitFor();
    await page.locator('#guess-input').fill('z');assert.equal(await page.locator('.input-square.used-letter').count(),1,'already revealed absences remain available');
    await page.locator('#guess-input').fill('cater');await page.locator('#guess-input').press('Enter');await page.locator('.tile').nth(4).waitFor();
    await page.locator('#guess-input').fill('t');

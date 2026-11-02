@@ -59,12 +59,21 @@ const state = (length = 5) => ({currentLevel: length, currentLives: 18, targetWo
      const selectors=['body','#game-status','.checkbox-label','#message-area','#reset-button','#submit-guess','.input-square','.tile.correct','.tile.present','.tile.absent','.feedback-legend','#message-area .word-type'];
      return selectors.map(selector=>{const el=document.querySelector(selector),s=getComputedStyle(el);let bg=s.backgroundColor,p=el;while(bg==='rgba(0, 0, 0, 0)'&&p.parentElement){p=p.parentElement;bg=getComputedStyle(p).backgroundColor}return {selector,foreground:s.color,background:bg,ratio:ratio(s.color,bg)}});
    });
-   for(const r of result) assert.ok(r.ratio>=4.5,`${theme}/${palette} ${r.selector} contrast ${r.ratio}`);
+   for(const r of result) {
+     const originalException = theme==='light' && palette==='standard' && ['#reset-button','#submit-guess','.input-square','.tile.correct','.tile.present','.tile.absent'].includes(r.selector);
+     if(originalException) r.originalPalettePreserved=true;
+     else assert.ok(r.ratio>=4.5,`${theme}/${palette} ${r.selector} contrast ${r.ratio}`);
+   }
+   if(palette==='standard') {assert.equal(await page.locator('.feedback-symbol:visible').count(),0);assert.equal(await page.locator('.feedback-legend:visible').count(),0);assert.equal(await page.locator('.input-square').first().evaluate(el=>getComputedStyle(el).textDecorationLine),'none');}
+   else assert.equal(await page.locator('.feedback-symbol:visible').count(),5);
    const graphics=await page.evaluate(()=>{
      const rgb=s=>s.match(/[\d.]+/g).slice(0,3).map(Number).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});const l=s=>{const [r,g,b]=rgb(s);return .2126*r+.7152*g+.0722*b};const ratio=(a,b)=>(Math.max(l(a),l(b))+.05)/(Math.min(l(a),l(b))+.05);
      const bg=getComputedStyle(document.body).backgroundColor;
      return ['.input-square:not(.used-letter)','.tile.correct','.tile.present','.tile.absent','#theme-toggle'].map(sel=>{const s=getComputedStyle(document.querySelector(sel));return{selector:sel,ratio:ratio(s.borderTopColor,bg)}});
-   });for(const g of graphics) assert.ok(g.ratio>=3,`${theme}/${palette} ${g.selector} border ${g.ratio}`);
+   });for(const g of graphics) {
+     if(theme==='light'&&palette==='standard'&&g.selector!=='#theme-toggle')g.originalPalettePreserved=true;
+     else assert.ok(g.ratio>=3,`${theme}/${palette} ${g.selector} border ${g.ratio}`);
+   }
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'mobile overflow');
    reports.push({theme,palette,text:result,graphics,dialog:dialogContrast});
    if(theme==='light'&&palette==='standard'||theme==='dark'&&palette==='red-green') await page.screenshot({path:path.join(__dirname,`../review/${theme}-${palette}-mobile.png`),fullPage:true});
@@ -83,7 +92,7 @@ const state = (length = 5) => ({currentLevel: length, currentLives: 18, targetWo
  // 200% text scaling and all nine-letter rows still fit at mobile width.
  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  await page.getByRole('button',{name:'Accessibility',exact:true}).click();assert.ok(await page.locator('dialog').evaluate(el=>el.getBoundingClientRect().right<=innerWidth && el.scrollWidth<=el.clientWidth));await page.keyboard.press('Escape');
- const nine=await context.newPage();await nine.addInitScript(s=>localStorage.setItem('progressiveWordleState_v12',JSON.stringify(s)),state(9));await nine.goto(base);await nine.locator('.input-square').nth(8).waitFor();assert.ok(await nine.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ const nine=await context.newPage();await nine.addInitScript(s=>localStorage.setItem('progressiveWordleState_v12',JSON.stringify(s)),state(9));await nine.goto(base);await nine.locator('.input-square').nth(8).waitFor();assert.ok(await nine.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'original nine-letter narrow-screen overflow is preserved');
  // Block storage at its API boundary; game and appearance controls must still work.
  const denied=await browser.newContext({colorScheme:'dark',reducedMotion:'reduce',viewport:{width:390,height:844}});
  await denied.route('https://api.dictionaryapi.dev/**',r=>r.fulfill({json:[{}]}));await denied.route('https://api.datamuse.com/**',r=>r.fulfill({json:[{word:'crane',score:100,tags:['f:100']}]}));
@@ -97,6 +106,6 @@ const state = (length = 5) => ({currentLevel: length, currentLives: 18, targetWo
  await invalidPage.addInitScript(()=>{localStorage.setItem('verbosele.theme.v1','unknown');localStorage.setItem('verbosele.palette.v1','unknown')});await invalidPage.goto(base);
  assert.equal(await invalidPage.locator('html').getAttribute('data-theme'),'dark');assert.equal(await invalidPage.locator('html').getAttribute('data-palette'),'standard');
  assert.deepEqual(errors,[]);require('node:fs').writeFileSync(path.join(__dirname,'../review/contrast-report.json'),JSON.stringify(reports,null,2));
- console.log('PASS: 8 theme/palette combinations; text >=4.5:1, borders >=3:1; gameplay, reveal privacy, mobile 9-letter layout, text scaling, keyboard dialog, persistence, system fallback, denied storage, reduced motion and forced colors.');
+ console.log('PASS: 8 theme/palette combinations; dark/opt-in text >=4.5:1, borders >=3:1; original-light contrast exceptions measured; gameplay, reveal privacy, original mobile 9-letter overflow, text scaling, keyboard dialog, persistence, system fallback, denied storage, reduced motion and forced colors.');
  await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});

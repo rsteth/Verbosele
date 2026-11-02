@@ -1,0 +1,58 @@
+[
+  {
+    "theme": "light",
+    "palette": "standard",
+    "color": "rgb(255, 208, 0)",
+    "background": "rgb(244, 244, 244)",
+    "ratio": 1.337589689414651
+  },
+  {
+    "theme": "light",
+    "palette": "red-green",
+    "color": "rgb(94, 75, 0)",
+    "background": "rgb(244, 244, 244)",
+    "ratio": 7.69153783607959
+  },
+  {
+    "theme": "light",
+    "palette": "blue-yellow",
+    "color": "rgb(94, 75, 0)",
+    "background": "rgb(244, 244, 244)",
+    "ratio": 7.69153783607959
+  },
+  {
+    "theme": "light",
+    "palette": "high-contrast",
+    "color": "rgb(17, 17, 17)",
+    "background": "rgb(255, 255, 255)",
+    "ratio": 18.883060964594996
+  },
+  {
+    "theme": "dark",
+    "palette": "standard",
+    "color": "rgb(255, 208, 0)",
+    "background": "rgb(30, 30, 30)",
+    "ratio": 11.331901265682058
+  },
+  {
+    "theme": "dark",
+    "palette": "red-green",
+    "color": "rgb(255, 208, 0)",
+    "background": "rgb(30, 30, 30)",
+    "ratio": 11.331901265682058
+  },
+  {
+    "theme": "dark",
+    "palette": "blue-yellow",
+    "color": "rgb(255, 208, 0)",
+    "background": "rgb(30, 30, 30)",
+    "ratio": 11.331901265682058
+  },
+  {
+    "theme": "dark",
+    "palette": "high-contrast",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(17, 17, 17)",
+    "ratio": 18.883060964594996
+  }
+]

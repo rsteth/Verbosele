@@ -4,39 +4,44 @@
     "palette": "standard",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "contrast": 6.13240026768346,
-        "transitionDuration": "0s"
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(217, 83, 79)",
+        "contrast": 3.9618545287704063,
+        "transitionDuration": "0s",
+        "originalPalettePreserved": true
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "contrast": 6.13240026768346,
-        "transitionDuration": "0s"
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(217, 83, 79)",
+        "contrast": 3.9618545287704063,
+        "transitionDuration": "0s",
+        "originalPalettePreserved": true
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "contrast": 6.13240026768346,
-        "transitionDuration": "0s"
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(217, 83, 79)",
+        "contrast": 3.9618545287704063,
+        "transitionDuration": "0s",
+        "originalPalettePreserved": true
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "contrast": 6.13240026768346,
-        "transitionDuration": "0s"
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(217, 83, 79)",
+        "contrast": 3.9618545287704063,
+        "transitionDuration": "0s",
+        "originalPalettePreserved": true
       },
       {
         "stage": "settled",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "contrast": 6.13240026768346,
-        "transitionDuration": "0s"
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(217, 83, 79)",
+        "contrast": 3.9618545287704063,
+        "transitionDuration": "0s",
+        "originalPalettePreserved": true
       }
     ]
   },
@@ -45,38 +50,38 @@
     "palette": "red-green",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(128, 89, 31)",
-        "contrast": 6.13240026768346,
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(146, 80, 29)",
+        "contrast": 6.199436874423564,
         "transitionDuration": "0s"
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(255, 253, 247)",
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(146, 80, 29)",
-        "contrast": 6.094693536353696,
+        "contrast": 6.199436874423564,
         "transitionDuration": "0s"
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(146, 80, 29)",
-        "contrast": 6.094693536353696,
+        "contrast": 6.199436874423564,
         "transitionDuration": "0s"
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(146, 80, 29)",
-        "contrast": 6.094693536353696,
+        "contrast": 6.199436874423564,
         "transitionDuration": "0s"
       },
       {
         "stage": "settled",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(146, 80, 29)",
-        "contrast": 6.094693536353696,
+        "contrast": 6.199436874423564,
         "transitionDuration": "0s"
       }
     ]
@@ -86,38 +91,38 @@
     "palette": "blue-yellow",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(146, 80, 29)",
-        "contrast": 6.094693536353696,
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(35, 100, 94)",
+        "contrast": 6.871808770263846,
         "transitionDuration": "0s"
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(255, 253, 247)",
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(35, 100, 94)",
-        "contrast": 6.755705291229364,
+        "contrast": 6.871808770263846,
         "transitionDuration": "0s"
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(35, 100, 94)",
-        "contrast": 6.755705291229364,
+        "contrast": 6.871808770263846,
         "transitionDuration": "0s"
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(35, 100, 94)",
-        "contrast": 6.755705291229364,
+        "contrast": 6.871808770263846,
         "transitionDuration": "0s"
       },
       {
         "stage": "settled",
-        "foreground": "rgb(255, 253, 247)",
+        "foreground": "rgb(255, 255, 255)",
         "background": "rgb(35, 100, 94)",
-        "contrast": 6.755705291229364,
+        "contrast": 6.871808770263846,
         "transitionDuration": "0s"
       }
     ]
@@ -127,38 +132,38 @@
     "palette": "high-contrast",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(35, 100, 94)",
-        "contrast": 6.755705291229364,
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "contrast": 17.54814293185593,
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "contrast": 17.54814293185593,
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "contrast": 17.54814293185593,
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
         "stage": "settled",
-        "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(23, 24, 19)",
-        "contrast": 17.54814293185593,
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(17, 17, 17)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       }
     ]
@@ -168,38 +173,38 @@
     "palette": "standard",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "contrast": 18.369553436157556,
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(185, 54, 50)",
+        "contrast": 5.774653048804883,
         "transitionDuration": "0s"
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(229, 193, 139)",
-        "contrast": 9.331322835152577,
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(185, 54, 50)",
+        "contrast": 5.774653048804883,
         "transitionDuration": "0s"
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(229, 193, 139)",
-        "contrast": 9.331322835152577,
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(185, 54, 50)",
+        "contrast": 5.774653048804883,
         "transitionDuration": "0s"
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(229, 193, 139)",
-        "contrast": 9.331322835152577,
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(185, 54, 50)",
+        "contrast": 5.774653048804883,
         "transitionDuration": "0s"
       },
       {
         "stage": "settled",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(229, 193, 139)",
-        "contrast": 9.331322835152577,
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(185, 54, 50)",
+        "contrast": 5.774653048804883,
         "transitionDuration": "0s"
       }
     ]
@@ -209,38 +214,38 @@
     "palette": "red-green",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(229, 193, 139)",
-        "contrast": 9.331322835152577,
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(30, 30, 30)",
+        "background": "rgb(239, 189, 138)",
+        "contrast": 9.777378169423816,
         "transitionDuration": "0s"
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(32, 35, 31)",
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(239, 189, 138)",
-        "contrast": 9.319045493890421,
+        "contrast": 9.777378169423816,
         "transitionDuration": "0s"
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(239, 189, 138)",
-        "contrast": 9.319045493890421,
+        "contrast": 9.777378169423816,
         "transitionDuration": "0s"
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(239, 189, 138)",
-        "contrast": 9.319045493890421,
+        "contrast": 9.777378169423816,
         "transitionDuration": "0s"
       },
       {
         "stage": "settled",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(239, 189, 138)",
-        "contrast": 9.319045493890421,
+        "contrast": 9.777378169423816,
         "transitionDuration": "0s"
       }
     ]
@@ -250,38 +255,38 @@
     "palette": "blue-yellow",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(239, 189, 138)",
-        "contrast": 9.319045493890421,
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(30, 30, 30)",
+        "background": "rgb(153, 215, 204)",
+        "contrast": 10.277818153618687,
         "transitionDuration": "0s"
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(32, 35, 31)",
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(153, 215, 204)",
-        "contrast": 9.796026428744518,
+        "contrast": 10.277818153618687,
         "transitionDuration": "0s"
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(153, 215, 204)",
-        "contrast": 9.796026428744518,
+        "contrast": 10.277818153618687,
         "transitionDuration": "0s"
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(153, 215, 204)",
-        "contrast": 9.796026428744518,
+        "contrast": 10.277818153618687,
         "transitionDuration": "0s"
       },
       {
         "stage": "settled",
-        "foreground": "rgb(32, 35, 31)",
+        "foreground": "rgb(30, 30, 30)",
         "background": "rgb(153, 215, 204)",
-        "contrast": 9.796026428744518,
+        "contrast": 10.277818153618687,
         "transitionDuration": "0s"
       }
     ]
@@ -291,38 +296,38 @@
     "palette": "high-contrast",
     "samples": [
       {
-        "stage": "theme event, same task",
-        "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(153, 215, 204)",
-        "contrast": 9.796026428744518,
+        "stage": "theme and palette events, same task",
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
-        "stage": "palette event, same task",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "contrast": 18.369553436157556,
+        "stage": "same task, repeated style read",
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
         "stage": "first frame",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "contrast": 18.369553436157556,
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
         "stage": "second frame",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "contrast": 18.369553436157556,
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       },
       {
         "stage": "settled",
-        "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(255, 253, 247)",
-        "contrast": 18.369553436157556,
+        "foreground": "rgb(17, 17, 17)",
+        "background": "rgb(255, 255, 255)",
+        "contrast": 18.883060964594996,
         "transitionDuration": "0s"
       }
     ]
