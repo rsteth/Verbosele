@@ -31,10 +31,12 @@ const state = (length = 5) => ({currentLevel: length, currentLives: 18, targetWo
  await page.locator('.tile').last().waitFor();
  assert.equal(await page.locator('.tile').last().getAttribute('aria-label'),'R');
  assert.equal(await page.locator('.tile').last().locator('.feedback-symbol').count(),0);
+ await page.locator('#guess-input').fill('t');assert.equal(await page.locator('.input-square').first().evaluate(el=>el.classList.contains('used-letter')),false);
  await page.waitForTimeout(200);
  assert.equal(await page.locator('.tile').first().locator('.feedback-symbol').count(),0);
  assert.equal(await page.locator('.tile').first().getAttribute('aria-label'),'C');
  await page.waitForTimeout(850);
+ assert.equal(await page.locator('.input-square').first().evaluate(el=>el.classList.contains('used-letter')),true);
  assert.deepEqual(await page.locator('.tile .feedback-symbol').allTextContents(),['✓','◆','×','◆','◆']);
  assert.equal(await page.locator('#lives-display').innerText(),'Lives: 17');
  const saved = await page.evaluate(()=>localStorage.getItem('progressiveWordleState_v12'));

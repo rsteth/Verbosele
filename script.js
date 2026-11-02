@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let visualInputSquares = [];
     let duplicateTargetLetters = new Set();
     let requiredStartingLetter = ''; // Stores the required starting letter after level 1
+    let revealedAbsentLetters = new Set(); // Presentation knowledge, updated only when feedback is visible.
     let absentLetters = new Set(); // Tracks letters that have been guessed and are not in the target word
     let thesaurusData = null; // Store thesaurus data for the current target word
     let showThesaurus = false; // Track thesaurus toggle state
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 requiredStartingLetter = savedState.requiredStartingLetter || ''; // Load the constraint
                 // Handle both old (usedLetters) and new (absentLetters) state formats
                 absentLetters = new Set(savedState.absentLetters || savedState.usedLetters || []);
+                revealedAbsentLetters = new Set(absentLetters);
                 // Load thesaurus toggle state if available
                 showThesaurus = savedState.showThesaurus || false;
                 showThesaurusToggle.checked = showThesaurus;
@@ -112,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameWon = false; 
         duplicateTargetLetters = new Set();
         requiredStartingLetter = ''; 
+        revealedAbsentLetters = new Set();
         absentLetters = new Set();
         thesaurusData = null;
         guessedWords = new Set(); // Reset guessed words
@@ -145,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const row = document.createElement('div');
         row.classList.add('grid-row');
         row.style.setProperty('--letter-count', wordLength);
+        gridContainer.appendChild(row);
 
         for (let i = 0; i < wordLength; i++) {
             const tile = document.createElement('div');
@@ -167,6 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     tile.appendChild(marker);
                     tile.setAttribute('aria-label', `${guess[i]}: ${descriptions[state]}`);
                 }
+                if (state === 'absent' && wordLength === currentWordLength && !targetWord.includes(letter) && row.isConnected) {
+                    revealedAbsentLetters.add(letter.toUpperCase());
+                    updateVisualSquares();
+                }
                 // Preserve the existing duplicate hint, only once this tile reveals.
                 if (letter && wordLength === currentWordLength && duplicateTargetLetters.has(letter)) {
                     tile.classList.add('glow-duplicate');
@@ -184,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             row.appendChild(tile);
         }
-        gridContainer.appendChild(row);
 
         // Scroll for new guesses only
         if (!immediate) {
@@ -232,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             square.classList.toggle('filled', !!char);
             
             // Apply special styling to letters that are not in the target word
-            if (char && absentLetters.has(char)) {
+            if (char && revealedAbsentLetters.has(char)) {
                 square.classList.add('used-letter');
             } else {
                 square.classList.remove('used-letter');
@@ -297,6 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentWordLength = currentLevel;
         targetWord = '';
         duplicateTargetLetters = new Set(); // Reset duplicates for new level
+        revealedAbsentLetters = new Set();
         absentLetters = new Set(); // Reset absent letters for new level
         thesaurusData = null; // Reset thesaurus data for new word
         guessedWords = new Set(); // Reset guessed words for new level

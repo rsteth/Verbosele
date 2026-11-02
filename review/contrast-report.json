@@ -30,8 +30,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(145, 81, 29)",
-        "ratio": 6.074505818920137
+        "background": "rgb(128, 89, 31)",
+        "ratio": 6.13240026768346
       },
       {
         "selector": "#submit-guess",
@@ -180,8 +180,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(133, 86, 30)",
-        "ratio": 6.16795076064011
+        "background": "rgb(146, 80, 29)",
+        "ratio": 6.094693536353696
       },
       {
         "selector": "#submit-guess",
@@ -330,8 +330,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(137, 82, 33)",
-        "ratio": 6.270271628562678
+        "background": "rgb(35, 100, 94)",
+        "ratio": 6.755705291229364
       },
       {
         "selector": "#submit-guess",
@@ -480,8 +480,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(255, 253, 247)",
-        "background": "rgb(64, 89, 71)",
-        "ratio": 7.540422742564882
+        "background": "rgb(23, 24, 19)",
+        "ratio": 17.54814293185593
       },
       {
         "selector": "#submit-guess",
@@ -630,8 +630,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(139, 145, 132)",
-        "ratio": 4.903960619305194
+        "background": "rgb(229, 193, 139)",
+        "ratio": 9.331322835152577
       },
       {
         "selector": "#submit-guess",
@@ -780,8 +780,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(203, 178, 137)",
-        "ratio": 7.769810642928207
+        "background": "rgb(239, 189, 138)",
+        "ratio": 9.319045493890421
       },
       {
         "selector": "#submit-guess",
@@ -930,8 +930,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(32, 35, 31)",
-        "background": "rgb(227, 190, 143)",
-        "ratio": 9.10114256224139
+        "background": "rgb(153, 215, 204)",
+        "ratio": 9.796026428744518
       },
       {
         "selector": "#submit-guess",
@@ -1080,8 +1080,8 @@
       {
         "selector": "#reset-button",
         "foreground": "rgb(17, 19, 15)",
-        "background": "rgb(181, 211, 190)",
-        "ratio": 11.5901940094064
+        "background": "rgb(255, 253, 247)",
+        "ratio": 18.369553436157556
       },
       {
         "selector": "#submit-guess",
