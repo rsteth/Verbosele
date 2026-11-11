@@ -1,0 +1,15 @@
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {resolve} from 'node:path';
+import assert from 'node:assert/strict';
+const root=fileURLToPath(new URL('../../',import.meta.url));
+const read=async path=>JSON.parse(await readFile(resolve(root,path),'utf8'));
+const baseline=await read('design/baseline.json');
+for(const [path,expected]of Object.entries(baseline.files))assert.equal(createHash('sha256').update(await readFile(resolve(root,path))).digest('hex'),expected,`Production changed: ${path}`);
+const core=process.env.DESIGN_SYSTEM_ROOT||'/Users/robinstethem/Programs/design-system-release';
+const {validateCollection,validateTokens,validateInventory}=await import(pathToFileURL(resolve(core,'packages/tokens/index.mjs')));
+const {validateInventoryFiles}=await import(pathToFileURL(resolve(core,'tooling/inventory-files.mjs')));
+const collection=await read('design/collection.json'),tokens=await read('design/tokens.json'),inventory=await read('design/inventory.json');
+assert.deepEqual([...validateCollection(collection),...validateTokens(tokens),...validateInventory(inventory,collection),...await validateInventoryFiles(inventory,root)],[]);
+console.log(`Passed: ${Object.keys(baseline.files).length} unchanged production files; ${collection.fixtures.length} fixtures; ${inventory.items.length} inventory items; ${tokens.modes.length} source palette modes.`);

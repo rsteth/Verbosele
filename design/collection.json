@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "id": "verbosele",
+  "title": "Verbosele",
+  "kind": "app",
+  "renderer": "dom",
+  "summary": "Real word game, theme and accessibility controls. Deterministic synthetic fixtures; original production appearance unchanged.",
+  "tokens": "tokens.json",
+  "inventory": "inventory.json",
+  "themes": [
+    "light-standard",
+    "light-red-green",
+    "light-blue-yellow",
+    "light-high-contrast",
+    "dark-standard",
+    "dark-red-green",
+    "dark-blue-yellow",
+    "dark-high-contrast"
+  ],
+  "source": {
+    "repository": "https://github.com/rsteth/Verbosele",
+    "revision": "0b9b48510fcacad505b09517347515409e48e92d",
+    "path": "."
+  },
+  "provenance": {
+    "status": "author-owned",
+    "sources": []
+  },
+  "license": {
+    "spdx": "UNLICENSED",
+    "note": "Existing source terms apply; local inspection does not grant redistribution rights."
+  },
+  "fixtures": [
+    {
+      "id": "new-game",
+      "title": "New game",
+      "section": "screens",
+      "url": "http://127.0.0.1:8783/?fixture=new-game&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "new-game",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback",
+      "title": "Revealed tile feedback",
+      "section": "components",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "input-filled",
+      "title": "Segmented guess input",
+      "section": "components",
+      "url": "http://127.0.0.1:8783/?fixture=input-filled&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "input-filled",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "accessibility",
+      "title": "Accessibility dialog",
+      "section": "components",
+      "url": "http://127.0.0.1:8783/?fixture=accessibility&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "accessibility",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "thesaurus",
+      "title": "Thesaurus hints",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=thesaurus&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "thesaurus",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "game-over",
+      "title": "No lives remaining",
+      "section": "screens",
+      "url": "http://127.0.0.1:8783/?fixture=game-over&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "game-over",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "game-won",
+      "title": "Completed game",
+      "section": "screens",
+      "url": "http://127.0.0.1:8783/?fixture=game-won&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "game-won",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "nine-letters",
+      "title": "Nine-letter level and repeated letters",
+      "section": "screens",
+      "url": "http://127.0.0.1:8783/?fixture=nine-letters&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "nine-letters",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "storage-denied",
+      "title": "Storage unavailable",
+      "section": "screens",
+      "url": "http://127.0.0.1:8783/?fixture=storage-denied&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "storage-denied",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "network-error",
+      "title": "Word service error",
+      "section": "screens",
+      "url": "http://127.0.0.1:8783/?fixture=network-error&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "network-error",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-light-standard",
+      "title": "Feedback / light / standard",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=light&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-light-red-green",
+      "title": "Feedback / light / red-green",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=light&palette=red-green",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-light-blue-yellow",
+      "title": "Feedback / light / blue-yellow",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=light&palette=blue-yellow",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-light-high-contrast",
+      "title": "Feedback / light / high-contrast",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=light&palette=high-contrast",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-dark-standard",
+      "title": "Feedback / dark / standard",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=dark&palette=standard",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-dark-red-green",
+      "title": "Feedback / dark / red-green",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=dark&palette=red-green",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-dark-blue-yellow",
+      "title": "Feedback / dark / blue-yellow",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=dark&palette=blue-yellow",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    },
+    {
+      "id": "feedback-dark-high-contrast",
+      "title": "Feedback / dark / high-contrast",
+      "section": "patterns",
+      "url": "http://127.0.0.1:8783/?fixture=feedback&theme=dark&palette=high-contrast",
+      "scenario": {
+        "page": "/",
+        "state": "feedback",
+        "setup": "synthetic-memory-and-offline-api",
+        "network": "fixture"
+      },
+      "description": "Unchanged production HTML/CSS/JS with preview-only in-memory storage and deterministic API responses. Not a recreated screen."
+    }
+  ]
+}

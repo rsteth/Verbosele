@@ -1,0 +1,190 @@
+{
+  "results": [
+    {
+      "fixture": "new-game",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "input-filled",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "accessibility",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "thesaurus",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "game-over",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "game-won",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "nine-letters",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "storage-denied",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "network-error",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-standard",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-red-green",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-blue-yellow",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-high-contrast",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-standard",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-red-green",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-blue-yellow",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-high-contrast",
+      "width": 1280,
+      "status": "passed"
+    },
+    {
+      "fixture": "new-game",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "input-filled",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "accessibility",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "thesaurus",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "game-over",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "game-won",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "nine-letters",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "storage-denied",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "network-error",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-standard",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-red-green",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-blue-yellow",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-light-high-contrast",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-standard",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-red-green",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-blue-yellow",
+      "width": 390,
+      "status": "passed"
+    },
+    {
+      "fixture": "feedback-dark-high-contrast",
+      "width": 390,
+      "status": "passed"
+    }
+  ],
+  "pixelComparisons": 8,
+  "tokenModesVerified": 8,
+  "interactions": "Central workbench theme selection, keyboard modal, palette/theme, real guess, three resets, hints at both widths",
+  "externalRequests": [],
+  "pageErrors": [],
+  "limits": "No physical device, screen reader or alternate engine testing."
+}

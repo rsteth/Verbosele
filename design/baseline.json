@@ -1,0 +1,11 @@
+{
+  "revision": "0b9b48510fcacad505b09517347515409e48e92d",
+  "files": {
+    "index.html": "87f40b4b03a5b716098ab8126c113e1d873a811235e7cf922d1f6a556ab5f6f1",
+    "style.css": "9e17fbede158be589b5cdea29fa16c1a0a9eb23cb9aae37cc33480e93f244e83",
+    "script.js": "8ab593c74ecfe6173fda6bfe16df9e300f8ff3fa6502890b8b971edda14ce493",
+    "appearance.js": "0b71ecb388b1b0b78992ee3e683138298858f6a79356377fc65bbdce9d661a6b",
+    "favicon.js": "4e4e05beaa472bf70b4de34635548987ce29f2e4d2667f092cab804607fcce98",
+    "favicon.png": "4e435840c374a915cca0ca718c2c233ed52c520230f2b1441c3dd29cfd43eb36"
+  }
+}
