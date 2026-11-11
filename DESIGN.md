@@ -11,3 +11,7 @@ The eight token modes document the existing CSS cascade; they are inspection met
 Preserved limits: original Standard light has known contrast exceptions, nine-letter rows can overflow narrow viewports, and 200% text may overflow the original status line. These are documented in the original README. Screen-reader speech, physical devices, other engines, tab favicon pixels and live dictionary quality are not covered. No accessibility-conformance claim. No public redistribution or deployment is authorized.
 
 No parent stethem.com submodule pointer is committed by this integration. Central registry synchronization is explicit and separate.
+
+## Verified theme handshake
+
+Preview-only theme.mjs installs the canonical, SHA-256-pinned theme adapter. It validates requested modes and computed source tokens before acknowledging the central parent request nonce. Verbosele applies appearance through existing production controls; Prosocial supports only its actual light palette. The adapter checks the parent window, message type and request ID, and is disposed on page exit. The strict server allows cross-origin module loading for sandboxed central previews only on its existing public-file allowlist.

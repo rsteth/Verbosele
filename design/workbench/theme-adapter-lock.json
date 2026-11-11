@@ -1,0 +1,8 @@
+{
+  "source": "packages/workbench/theme-adapter.mjs",
+  "sha256": "8bb5c72e5edb47e6e584b54aa85b299801d979a92fccb4e5c1d8d2e73bc6483d",
+  "vendor": "design/workbench/vendor/theme-adapter.mjs",
+  "sourceRevision": "1252cb5365f02c8b39c1ad0ac9a5b4b26a360c28",
+  "license": "design/workbench/vendor/LICENSE",
+  "licenseSha256": "8d3ab0d6a9f8f460ab5f30d1a5b0901881b0ce7ee8fa530e415fdfd70bf7dc02"
+}

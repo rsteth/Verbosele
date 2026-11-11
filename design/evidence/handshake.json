@@ -1,0 +1,99 @@
+{
+  "collection": "verbosele",
+  "results": [
+    {
+      "cycle": 0,
+      "theme": "light-standard",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 0,
+      "theme": "light-red-green",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 0,
+      "theme": "light-blue-yellow",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 0,
+      "theme": "light-high-contrast",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 0,
+      "theme": "dark-standard",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 0,
+      "theme": "dark-red-green",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 0,
+      "theme": "dark-blue-yellow",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 0,
+      "theme": "dark-high-contrast",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "light-standard",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "light-red-green",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "light-blue-yellow",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "light-high-contrast",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "dark-standard",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "dark-red-green",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "dark-blue-yellow",
+      "status": "Theme adapter confirmed"
+    },
+    {
+      "cycle": 1,
+      "theme": "dark-high-contrast",
+      "status": "Theme adapter confirmed"
+    }
+  ],
+  "screenNavigation": [
+    "new-game",
+    "game-over",
+    "game-won",
+    "nine-letters",
+    "storage-denied",
+    "network-error"
+  ],
+  "wrongModeTypeNonceAndSource": "ignored",
+  "validParentNonce": "echoed",
+  "computedPaletteMismatch": "not acknowledged",
+  "pagehideDisposal": "no further acknowledgement",
+  "reload": "confirmed",
+  "pageErrors": []
+}

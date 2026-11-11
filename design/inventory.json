@@ -185,6 +185,14 @@
       "status": "passed",
       "scope": "36 fixture views, eight exact raw-production pixel comparisons, eight computed token modes, keyboard/modal/guess/hints/repeated resets, server denies, zero remote requests and page errors",
       "evidence": "design/evidence/browser.json"
+    },
+    {
+      "id": "central-theme-handshake",
+      "label": "Actual central studio theme confirmation",
+      "command": "node design/workbench/test-handshake.cjs",
+      "status": "passed",
+      "scope": "Repeated central theme selections, source-window/type/requestId validation, computed palette mismatch rejection, pagehide disposal and reload",
+      "evidence": "design/evidence/handshake.json"
     }
   ]
 }

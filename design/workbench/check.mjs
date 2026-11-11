@@ -13,3 +13,10 @@ const {validateInventoryFiles}=await import(pathToFileURL(resolve(core,'tooling/
 const collection=await read('design/collection.json'),tokens=await read('design/tokens.json'),inventory=await read('design/inventory.json');
 assert.deepEqual([...validateCollection(collection),...validateTokens(tokens),...validateInventory(inventory,collection),...await validateInventoryFiles(inventory,root)],[]);
 console.log(`Passed: ${Object.keys(baseline.files).length} unchanged production files; ${collection.fixtures.length} fixtures; ${inventory.items.length} inventory items; ${tokens.modes.length} source palette modes.`);
+
+const lock=await read("design/workbench/theme-adapter-lock.json");
+assert.equal(createHash("sha256").update(await readFile(resolve(root,lock.vendor))).digest("hex"),lock.sha256);
+assert.equal(createHash("sha256").update(await readFile(resolve(core,lock.source))).digest("hex"),lock.sha256);
+console.log("Canonical theme adapter vendor hash verified.");
+
+assert.equal(createHash('sha256').update(await readFile(resolve(root,lock.license))).digest('hex'),lock.licenseSha256);
